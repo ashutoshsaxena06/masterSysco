@@ -10,6 +10,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import com.util.framework.RandomAction;
 import com.util.framework.SendMailSSL;
 
 public class TestSyscoOnline extends CommonSysco {
@@ -28,10 +29,11 @@ public class TestSyscoOnline extends CommonSysco {
 	@BeforeMethod
 	public void beforeTest() throws InterruptedException {
 		System.out.println("***********StartTest*********");
+		RandomAction.deleteFiles("C:\\Users\\Edge\\Downloads");
 		ChromeOptions options = new ChromeOptions();
 		options.addArguments("start-maximized");
 		System.setProperty("webdriver.chrome.driver",
-				"C:\\Users\\ashsaxen\\Downloads\\chromedriver_win32\\chromedriver.exe");
+				"C:\\Users\\Edge\\Downloads\\chromedriver_win32\\chromedriver.exe");
 		driver = new ChromeDriver(options);
 
 	}

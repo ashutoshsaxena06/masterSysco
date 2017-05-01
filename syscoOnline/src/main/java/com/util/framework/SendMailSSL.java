@@ -20,8 +20,6 @@ import javax.mail.internet.MimeMultipart;
 
 import resources.Constant;
 
-import com.util.framework.RandomAction;
-
 public class SendMailSSL {
 
 	public static  Session createConnection() throws MessagingException {
@@ -81,7 +79,7 @@ public class SendMailSSL {
 			// get connection
 			Session session = createConnection();
 			//String filepath = RandomAction.setdownloadDir();
-			File GFS_OG = RandomAction.getLatestFilefromDir("C:\\Users\\ashsaxen\\Downloads\\");
+			File GFS_OG = RandomAction.getLatestFilefromDir("C:\\Users\\Edge\\Downloads\\");
 			String filename = GFS_OG.getAbsolutePath();
 			System.out.println(filename);
 			

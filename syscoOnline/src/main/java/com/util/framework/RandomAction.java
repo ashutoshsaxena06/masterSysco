@@ -80,7 +80,7 @@ public class RandomAction {
 
 		File getLatestFilefromDir = null;
 		File dir = new File(dirPath);
-		FileFilter fileFilter = new WildcardFileFilter("*." + "csv");
+		FileFilter fileFilter = new WildcardFileFilter("*." + "xlsx");
 		File[] files = dir.listFiles(fileFilter);
 
 		if (files.length > 0) {
@@ -133,7 +133,7 @@ public class RandomAction {
 	public static boolean isFramePresent(WebDriver driver) throws InterruptedException {
 		//
 		// driver.findElement(By.xpath("//html/body/table/tbody/tr[2]/td[1]/div/div[2]/table/tbody/tr[1]/td/input")).click();
-		Thread.sleep(5000);
+		Thread.sleep(3000);
 		// List to get & store frame
 		List<WebElement> ele = driver.findElements(By.tagName("frame"));
 		System.out.println("Number of frames in a page :" + ele.size()); // ele.size
@@ -157,6 +157,16 @@ public class RandomAction {
 			}
 			return true; // frames present
 		}
+
+	}
+
+	public static void deleteFiles(String path) {
+		File dir = new File(path);
+		// FileUtils.cleanDirectory(dir);
+		for (File file : dir.listFiles())
+			if (!file.isDirectory())
+				file.delete();
+		System.out.println("All files deleted from folder :-" + path);
 
 	}
 
