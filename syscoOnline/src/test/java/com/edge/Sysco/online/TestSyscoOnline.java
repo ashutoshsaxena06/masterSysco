@@ -341,7 +341,7 @@ public class TestSyscoOnline extends CommonSysco {
 		SendMailSSL.sendMailAction("eSysco", "Shortys II Inc");
 	}
 	
-/*	@Test(priority = 26)
+	@Test(priority = 26)
 	public void SportsGrillSunset_SysFresh() throws InterruptedException, MessagingException {
 
 		System.out.println("26, SportsGrillSunset_SysFresh");
@@ -364,7 +364,7 @@ public class TestSyscoOnline extends CommonSysco {
 		//sendMail 
 		SendMailSSL.sendMailAction("Sysco - Offline GP", "Pilot House Marina");
 	}
-*/
+
 	
 	@Test(priority = 28)
 	public void Hole_Sysco() throws InterruptedException, MessagingException {
