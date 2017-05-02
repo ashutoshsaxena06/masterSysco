@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results skipped="0" failed="0" total="1" passed="1">
+  <reporter-output>
+  </reporter-output>
+  <suite name="Default suite" duration-ms="224735" started-at="2017-05-02T15:49:43Z" finished-at="2017-05-02T15:53:28Z">
+    <groups>
+    </groups>
+    <test name="Default test" duration-ms="224735" started-at="2017-05-02T15:49:43Z" finished-at="2017-05-02T15:53:28Z">
+      <class name="com.edge.Sysco.online.TestSyscoOnline">
+        <test-method status="PASS" signature="setup()[pri:0, instance:com.edge.Sysco.online.TestSyscoOnline@6093dd95]" name="setup" is-config="true" duration-ms="6" started-at="2017-05-02T21:19:43Z" finished-at="2017-05-02T21:19:43Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setup -->
+        <test-method status="PASS" signature="beforeTest()[pri:0, instance:com.edge.Sysco.online.TestSyscoOnline@6093dd95]" name="beforeTest" is-config="true" duration-ms="1387" started-at="2017-05-02T21:19:43Z" finished-at="2017-05-02T21:19:45Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- beforeTest -->
+        <test-method status="PASS" signature="TrumpIntl_Sysco()[pri:0, instance:com.edge.Sysco.online.TestSyscoOnline@6093dd95]" name="TrumpIntl_Sysco" duration-ms="222369" started-at="2017-05-02T21:19:45Z" finished-at="2017-05-02T21:23:27Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- TrumpIntl_Sysco -->
+        <test-method status="PASS" signature="pretearDown()[pri:0, instance:com.edge.Sysco.online.TestSyscoOnline@6093dd95]" name="pretearDown" is-config="true" duration-ms="960" started-at="2017-05-02T21:23:27Z" finished-at="2017-05-02T21:23:28Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- pretearDown -->
+        <test-method status="PASS" signature="AfterClass()[pri:0, instance:com.edge.Sysco.online.TestSyscoOnline@6093dd95]" name="AfterClass" is-config="true" duration-ms="0" started-at="2017-05-02T21:23:28Z" finished-at="2017-05-02T21:23:28Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- AfterClass -->
+      </class> <!-- com.edge.Sysco.online.TestSyscoOnline -->
+    </test> <!-- Default test -->
+  </suite> <!-- Default suite -->
+</testng-results>
