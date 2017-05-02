@@ -47,17 +47,17 @@ public class TestSyscoOnline extends CommonSysco {
 		}
 	}
 
-	@Test(priority = 1)
-	public void BocaLago_Sysco() throws InterruptedException, MessagingException {
-
-		System.out.println("1, BocaLago_Sysco ");
-
-		// check if login is success
-		startSysco(driver, "274655", "032302661", "bocalago2016");
-
-		// sendMail
-		SendMailSSL.sendMailAction("Sysco", "Boca Lago Country Club");
-	}
+//	@Test(priority = 1)
+//	public void BocaLago_Sysco() throws InterruptedException, MessagingException {
+//
+//		System.out.println("1, BocaLago_Sysco ");
+//
+//		// check if login is success
+//		startSysco(driver, "274655", "032302661", "bocalago2016");
+//
+//		// sendMail
+//		SendMailSSL.sendMailAction("Sysco", "Boca Lago Country Club");
+//	}
 
 	// @Test(priority = 2)
 	// public void ChefDavid_Sysco() throws InterruptedException,
