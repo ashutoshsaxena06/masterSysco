@@ -29,7 +29,7 @@ public class TestSyscoOnline extends CommonSysco {
 	@BeforeMethod
 	public void beforeTest() throws InterruptedException {
 		System.out.println("***********StartTest*********");
-		// RandomAction.deleteFiles("C:\\Users\\Edge\\Downloads");
+		RandomAction.deleteFiles("C:\\Users\\Edge\\Downloads");
 		ChromeOptions options = new ChromeOptions();
 		options.addArguments("start-maximized");
 		System.setProperty("webdriver.chrome.driver",
