@@ -181,7 +181,7 @@ public class TestSyscoOnline extends CommonSysco {
 		startSysco(driver, "1769804", "194040139", "password7");
 
 		// sendMail
-		SendMailSSL.sendMailAction("SYSCO - Offline GP", "Hamiltons_Sysco");
+		SendMailSSL.sendMailAction("SYSCO - Offline GP", "Hamiltons Catering");
 	}
 
 	@Test(priority = 12)
@@ -221,7 +221,7 @@ public class TestSyscoOnline extends CommonSysco {
 		SendMailSSL.sendMailAction("SYSCO - Offline GP", "Sports Grill Palmetto");
 		SendMailSSL.sendMailAction("SYSCO - Offline GP", "Sports Grill Pembroke Pines");
 		SendMailSSL.sendMailAction("SYSCO - Offline GP", "Sports Grill South Miami");
-
+		SendMailSSL.sendMailAction("SYSCO - Offline GP", "Sports Grill Sunset");
 	}
 
 	// @Test(priority = 15)
