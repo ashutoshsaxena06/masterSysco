@@ -391,16 +391,16 @@ public class TestSyscoOnline extends CommonSysco {
 		SendMailSSL.sendMailAction("Sysco - Offline GP", "Hole in the Wall");
 	}
 
-	@Test(priority = 29)
-	public void Lucilles_Sysco() throws InterruptedException, MessagingException {
-
-		System.out.println("29, Lucilles_Sysco");
-
-		// check if login is success
-		startSysco(driver, "1878529", "032613299", "lucilles1");
-
-		// sendMail
-		SendMailSSL.sendMailAction("Sysco - Offline GP", "Lucille's BBQ");
-	}
+//	@Test(priority = 29)
+//	public void Lucilles_Sysco() throws InterruptedException, MessagingException {
+//
+//		System.out.println("29, Lucilles_Sysco");
+//
+//		// check if login is success
+//		startSysco(driver, "1878529", "032613299", "lucilles1");
+//
+//		// sendMail
+//		SendMailSSL.sendMailAction("Sysco - Offline GP", "Lucille's BBQ");
+//	}
 
 }
