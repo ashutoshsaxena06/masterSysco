@@ -36,7 +36,7 @@ public class CommonSysco {
 			} catch (WebDriverException we) {
 				// driver.findElement(By.xpath("//input[@name='Start
 				// Over']")).click();
-				ifForceLoginRequired(driver);
+			//	ifForceLoginRequired(driver);
 				we.printStackTrace();
 			}
 
