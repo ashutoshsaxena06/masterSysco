@@ -51,10 +51,10 @@ public class TestSyscoOnline extends CommonSysco {
 	@Test(priority = 1)
 	public void Boynton_Sysco() throws InterruptedException, MessagingException {
 
-		System.out.println("28, Hole_Sysco");
+		System.out.println("28, Boynton_Sysco");
 
 		// check if login is success
-		startSysco(driver, "032584003", "032584003", "4Flowers");
+		startSysco(driver, "1200692", "032584003", "4Flowers");
 
 		// sendMail
 		SendMailSSL.sendMailAction("Sysco - Offline GP", "Agliolio Boynton Italian Bistro & Bar");
@@ -63,10 +63,10 @@ public class TestSyscoOnline extends CommonSysco {
 	@Test(priority = 2)
 	public void Wellington_Sysco() throws InterruptedException, MessagingException {
 
-		System.out.println("29, Lucilles_Sysco");
+		System.out.println("29, Wellington_Sysco");
 
 		// check if login is success
-		startSysco(driver, "032452235", "032452235", "4Flowers");
+		startSysco(driver, "1198138", "032452235", "4Flowers");
 
 		// sendMail
 		SendMailSSL.sendMailAction("Sysco - Offline GP", "Agliolio Wellington Fresh Pasta & Wine");
