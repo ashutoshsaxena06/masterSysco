@@ -406,7 +406,7 @@ public class TestSyscoOnline extends CommonSysco {
 	@Test(priority = 30)
 	public void Boynton_Sysco() throws InterruptedException, MessagingException {
 
-		System.out.println("28, Hole_Sysco");
+		System.out.println("28, Boynton_Sysco");
 
 		// check if login is success
 		startSysco(driver, "1200692", "032584003", "4Flowers");
@@ -418,7 +418,7 @@ public class TestSyscoOnline extends CommonSysco {
 	@Test(priority = 31)
 	public void Wellington_Sysco() throws InterruptedException, MessagingException {
 
-		System.out.println("29, Lucilles_Sysco");
+		System.out.println("29, Wellington_Sysco");
 
 		// check if login is success
 		startSysco(driver, "1198138", "032452235", "4Flowers");
