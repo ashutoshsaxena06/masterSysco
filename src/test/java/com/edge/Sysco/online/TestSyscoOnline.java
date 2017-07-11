@@ -90,7 +90,7 @@ public class TestSyscoOnline extends CommonSysco {
 		System.out.println("4, TownKitchen_Sysco");
 
 		// check if login is success
-		startSysco(driver, "2119088", "016745448", "Password1");
+		startSysco(driver, "2119088", "016745448", "town180");
 
 		// sendMail
 		SendMailSSL.sendMailAction("Sysco", "Town Kitchen & Bar");
