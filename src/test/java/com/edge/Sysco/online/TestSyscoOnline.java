@@ -202,7 +202,7 @@ public class TestSyscoOnline extends CommonSysco {
 		System.out.println("13, RollingHills_Sysco");
 
 		// check if login is success
-		startSysco(driver, "513430", "031136184", "Corning2655");
+		startSysco(driver, "513430", "031136184", "Shipping2655");
 
 		// sendMail
 		SendMailSSL.sendMailAction("SYSCO - Offline GP", "Rolling Hills Casino");
@@ -426,5 +426,20 @@ public class TestSyscoOnline extends CommonSysco {
 //		// sendMail
 //		SendMailSSL.sendMailAction("Sysco - Offline GP", "Agliolio Wellington Fresh Pasta & Wine");
 //	}
-
+	
+//	@Test(priority = 32)
+//	public void BigPink_Sysco() throws InterruptedException, MessagingException {
+//
+//		System.out.println("28, Hole_Sysco");
+//
+//		// check if login is success
+//		startSysco(driver, "1757724", "Angelmarinov", "angel1980");
+//		340547
+//		
+//		// sendMail
+//		SendMailSSL.sendMailAction("Sysco - Offline GP", "Hole in the Wall");
+//		SendMailSSL.sendMailAction("Sysco - Offline GP", "Big Pink");
+//		SendMailSSL.sendMailAction("Sysco - Offline GP", "Prime 112");
+//		SendMailSSL.sendMailAction("Sysco - Offline GP", "Prime Fish");
+//	}
 }
