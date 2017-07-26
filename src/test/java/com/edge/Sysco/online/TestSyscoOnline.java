@@ -35,7 +35,6 @@ public class TestSyscoOnline extends CommonSysco {
 		System.setProperty("webdriver.chrome.driver",
 				"C:\\Users\\Edge\\Downloads\\chromedriver_win32\\chromedriver.exe");
 		driver = new ChromeDriver(options);
-
 	}
 
 	@AfterMethod
@@ -427,19 +426,16 @@ public class TestSyscoOnline extends CommonSysco {
 //		SendMailSSL.sendMailAction("Sysco - Offline GP", "Agliolio Wellington Fresh Pasta & Wine");
 //	}
 	
-//	@Test(priority = 32)
-//	public void BigPink_Sysco() throws InterruptedException, MessagingException {
-//
-//		System.out.println("28, Hole_Sysco");
-//
-//		// check if login is success
-//		startSysco(driver, "1757724", "Angelmarinov", "angel1980");
-//		340547
-//		
-//		// sendMail
-//		SendMailSSL.sendMailAction("Sysco - Offline GP", "Hole in the Wall");
-//		SendMailSSL.sendMailAction("Sysco - Offline GP", "Big Pink");
-//		SendMailSSL.sendMailAction("Sysco - Offline GP", "Prime 112");
-//		SendMailSSL.sendMailAction("Sysco - Offline GP", "Prime Fish");
-//	}
+	@Test(priority = 32)
+	public void BigPink_Sysco() throws InterruptedException, MessagingException {
+
+		System.out.println("28, Hole_Sysco");
+
+		// check if login is success
+		startSysco(driver,"340547", "1757724", "Angelmarinov", "angel1980");
+		
+		
+		// sendMail
+		SendMailSSL.sendMailAction("Sysco - Offline GP", "Big Pink");
+	}
 }

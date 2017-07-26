@@ -8,6 +8,7 @@ import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.util.framework.RandomAction;
@@ -25,7 +26,7 @@ public class CommonSysco {
 			driver.get("https://www.esysco.net/EOP/Login");
 			// Wait For Page To Load
 			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-			
+
 			driver.manage().deleteAllCookies();
 
 			wait = new WebDriverWait(driver, 30);
@@ -36,7 +37,7 @@ public class CommonSysco {
 			} catch (WebDriverException we) {
 				// driver.findElement(By.xpath("//input[@name='Start
 				// Over']")).click();
-			//	ifForceLoginRequired(driver);
+				// ifForceLoginRequired(driver);
 				we.printStackTrace();
 			}
 
@@ -64,10 +65,10 @@ public class CommonSysco {
 			System.out.println("Clicked On List option");
 
 			Thread.sleep(2000);
-			
+
 			// Select list
 			WebElement lnk_OGname = wait.until(ExpectedConditions.elementToBeClickable(driver
-					.findElement(By.xpath("//*[@id='" + listName + "']/*/*[contains(text(),'" + listName +"')]"))));
+					.findElement(By.xpath("//*[@id='" + listName + "']/*/*[contains(text(),'" + listName + "')]"))));
 			lnk_OGname.click();
 
 			// Choose List
@@ -191,6 +192,146 @@ public class CommonSysco {
 			return false;
 		}
 
+	}
+
+	public void startSysco(WebDriver driver, String AccountID, String listName, String userID, String pwd)
+			throws InterruptedException {
+
+		try {
+			driver.get("https://www.esysco.net/EOP/Login");
+			// Wait For Page To Load
+			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+
+			driver.manage().deleteAllCookies();
+
+			wait = new WebDriverWait(driver, 30);
+
+			// pass login credentials
+			try {
+				loginSysco(driver, userID, pwd);
+			} catch (WebDriverException we) {
+				// driver.findElement(By.xpath("//input[@name='Start
+				// Over']")).click();
+				// ifForceLoginRequired(driver);
+				we.printStackTrace();
+			}
+
+			Thread.sleep(2000);
+			if (RandomAction.isFramePresent(driver) == true) {
+				driver.switchTo().frame("botFrame");
+				System.out.println("switched to botFrame");
+			}
+
+			// Click on Sysco Market Express
+			WebElement btn_SyscoMarketExpress = wait.until(ExpectedConditions
+					.elementToBeClickable(driver.findElement(By.xpath("//input[@id='syscoMarketExpress']"))));
+
+			Assert.assertEquals(btn_SyscoMarketExpress.isDisplayed(), true);
+
+			btn_SyscoMarketExpress.click();
+			System.out.println("Sysco market express clicked");
+
+			Thread.sleep(3000);
+			
+			if (wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath(".//*[@id='customer-select-popup']")))).isDisplayed())
+			{
+				selectAccount(AccountID);
+			}
+
+			Thread.sleep(2000);
+			// click List link
+			WebElement lnk_List = wait.until(ExpectedConditions
+					.elementToBeClickable(driver.findElement(By.xpath("//li/a[contains(@id,'listTab')]"))));
+			lnk_List.click();
+			System.out.println("Clicked On List option");
+
+			Thread.sleep(2000);
+
+			// Select list
+			WebElement lnk_OGname = wait.until(ExpectedConditions.elementToBeClickable(driver
+					.findElement(By.xpath("//*[@id='" + listName + "']/*/*[contains(text(),'" + listName + "')]"))));
+			lnk_OGname.click();
+
+			// Choose List
+			// List<WebElement> OG_Lists
+			// =driver.findElements(By.xpath("//table[@id='sysRecomGrid']/*/tr"));
+			// System.out.println("No. of Rows in My List :-" +
+			// OG_Lists.size());
+			//
+			// Thread.sleep(2000);
+			// // Select list
+			// for (WebElement List_Elements : OG_Lists) {
+			// // System.out.println(List_Elements.getText());
+			// String OG_Element = List_Elements.getAttribute("id");
+			// System.out.println(OG_Element);
+			// if (OG_Element.equalsIgnoreCase(listName)) {
+			// driver.findElement(By.xpath("//table[@id='sysRecomGrid']/*/*/td/a[contains(.,"+
+			// listName +")]")).click();
+			//
+			// }
+			//
+			// }
+
+			Thread.sleep(2000);
+
+			Select ddl_MoreTools = new Select(
+					wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.id("moreListToolsTop")))));
+			ddl_MoreTools.selectByVisibleText("Export List");
+			System.out.println("Selected export list Option from More Tools drop down");
+
+			Thread.sleep(2000);
+			System.out.println("Export window displayed :-" + wait
+					.until(ExpectedConditions
+							.visibilityOf(driver.findElement(By.xpath("//div[@id='dialog-for-export']"))))
+					.isDisplayed());
+
+			Select ddl_expFormat = new Select(
+					wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.id("expFormat")))));
+			ddl_expFormat.selectByValue("6");
+			System.out.println("selected value for file type - 6");
+
+			WebElement chk_IncludePricing = driver.findElement(By.xpath("//input[@id='expIncludePricingCheckBox']"));
+			chk_IncludePricing.click();
+			System.out.println("checked to Include Pricing");
+
+			WebElement btn_Export = wait.until(ExpectedConditions
+					.elementToBeClickable(driver.findElement(By.xpath("//div/button[contains(.,'Export')]"))));
+			Assert.assertEquals(btn_Export.isDisplayed(), true);
+			btn_Export.click();
+			System.out.println("clicked on Export");
+
+			Thread.sleep(180000);
+
+			WebElement lnk_Close = wait.until(ExpectedConditions
+					.elementToBeClickable(driver.findElement(By.xpath("//div/a[contains(.,'Close')]"))));
+			lnk_Close.click();
+
+			Thread.sleep(2000);
+
+			WebElement inp_Close = wait.until(
+					ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//div/input[@id='close']"))));
+			inp_Close.click();
+			System.out.println("Application closed");
+
+		} catch (WebDriverException we) {
+			we.printStackTrace();
+			Assert.assertFalse(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+			Assert.assertFalse(true);
+		}
+		/*
+		 * finally {
+		 * 
+		 * }
+		 */
+	}
+
+	private void selectAccount(String accountID) {
+		WebElement lnk_AccountID = wait.until(ExpectedConditions
+				.elementToBeClickable(driver.findElement(By.xpath("//a[contains(text(),'" + accountID + "')]"))));
+		lnk_AccountID.click();
+		System.out.println("Account location ID select - "+ accountID);
 	}
 
 }
