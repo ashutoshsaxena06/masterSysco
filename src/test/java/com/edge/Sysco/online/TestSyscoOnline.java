@@ -58,6 +58,7 @@ public class TestSyscoOnline extends CommonSysco {
 
 		// sendMail
 		SendMailSSL.sendMailAction("Sysco - Offline GP", "Agliolio Boynton Italian Bistro & Bar");
+		SendMailSSL.sendMailAction("Sysco - Offline GP", "Agliolio Restaurant Boynton");
 	}
 
 	@Test(priority = 2)
@@ -70,6 +71,7 @@ public class TestSyscoOnline extends CommonSysco {
 
 		// sendMail
 		SendMailSSL.sendMailAction("Sysco - Offline GP", "Agliolio Wellington Fresh Pasta & Wine");
+		SendMailSSL.sendMailAction("Sysco - Offline GP", "Agliolio Restaurant Wellington");
 	}
 
 }
