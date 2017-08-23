@@ -438,4 +438,18 @@ public class TestSyscoOnline extends CommonSysco {
 		// sendMail
 		SendMailSSL.sendMailAction("Sysco - Offline GP", "Big Pink");
 	}
+	
+	@Test(priority = 33)
+	public void Crazy_Sysco() throws InterruptedException, MessagingException {
+
+		System.out.println("29, Crazy_Sysco");
+
+		// check if login is success
+		startSysco(driver,"1127707", "crazyregular", "crazy123");
+		
+		// sendMail
+		SendMailSSL.sendMailAction("Sysco - Offline GP", "Crazy about you");
+	}
+	
+	
 }
