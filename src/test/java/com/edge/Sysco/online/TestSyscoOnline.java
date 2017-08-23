@@ -46,17 +46,17 @@ public class TestSyscoOnline extends CommonSysco {
 		}
 	}
 
-	@Test(priority = 1)
-	public void BocaLago_Sysco() throws InterruptedException, MessagingException {
-
-		System.out.println("1, BocaLago_Sysco ");
-
-		// check if login is success
-		startSysco(driver, "2177033", "032302661", "bocalago2016");
-
-		// sendMail
-		SendMailSSL.sendMailAction("Sysco", "Boca Lago Country Club");
-	}
+//	@Test(priority = 1)
+//	public void BocaLago_Sysco() throws InterruptedException, MessagingException {
+//
+//		System.out.println("1, BocaLago_Sysco ");
+//
+//		// check if login is success
+//		startSysco(driver, "2177033", "032302661", "bocalago2016");
+//
+//		// sendMail
+//		SendMailSSL.sendMailAction("Sysco", "Boca Lago Country Club");
+//	}
 
 	// @Test(priority = 2)
 	// public void ChefDavid_Sysco() throws InterruptedException,
@@ -343,17 +343,17 @@ public class TestSyscoOnline extends CommonSysco {
 		SendMailSSL.sendMailAction("SYSCO - Offline GP", "Wycliffe Golf & Country Club");
 	}
 
-	@Test(priority = 25)
-	public void Shortys_Sysco() throws InterruptedException, MessagingException {
-
-		System.out.println("25, Shortys_Sysco");
-
-		// check if login is success
-		startSysco(driver, "1126453", "016583765", "password1");
-
-		// sendMail
-		SendMailSSL.sendMailAction("eSysco", "Shortys II Inc");
-	}
+//	@Test(priority = 25)
+//	public void Shortys_Sysco() throws InterruptedException, MessagingException {
+//
+//		System.out.println("25, Shortys_Sysco");
+//
+//		// check if login is success
+//		startSysco(driver, "1126453", "016583765", "password1");
+//
+//		// sendMail
+//		SendMailSSL.sendMailAction("eSysco", "Shortys II Inc");
+//	}
 
 //	@Test(priority = 26)
 //	public void SportsGrillSunset_SysFresh() throws InterruptedException, MessagingException {
