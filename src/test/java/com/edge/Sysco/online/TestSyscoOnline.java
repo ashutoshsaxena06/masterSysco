@@ -477,5 +477,16 @@ public class TestSyscoOnline extends CommonSysco {
 		SendMailSSL.sendMailAction("Sysco - Offline GP", "JB's on the Beach");
 	}
 	
+	@Test(priority = 36)
+	public void Mizner_Sysco() throws InterruptedException, MessagingException {
+
+		System.out.println("36, Mizner_Sysco");
+
+		// check if login is success
+		startSysco(driver,"1938376", "032437798", "Welcome12");
+		
+		// sendMail
+		SendMailSSL.sendMailAction("Sysco - Offline GP", "Mizner Country Club");
+	}
 	
 }
