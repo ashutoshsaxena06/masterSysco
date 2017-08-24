@@ -429,7 +429,7 @@ public class TestSyscoOnline extends CommonSysco {
 	@Test(priority = 32)
 	public void BigPink_Sysco() throws InterruptedException, MessagingException {
 
-		System.out.println("28, Hole_Sysco");
+		System.out.println("32, Hole_Sysco");
 
 		// check if login is success
 		startSysco(driver,"340547", "1757724", "Angelmarinov", "angel1980");
@@ -437,12 +437,14 @@ public class TestSyscoOnline extends CommonSysco {
 		
 		// sendMail
 		SendMailSSL.sendMailAction("Sysco - Offline GP", "Big Pink");
+		SendMailSSL.sendMailAction("Sysco - Offline GP", "Prime 112");
+
 	}
 	
 	@Test(priority = 33)
 	public void Crazy_Sysco() throws InterruptedException, MessagingException {
 
-		System.out.println("29, Crazy_Sysco");
+		System.out.println("33, Crazy_Sysco");
 
 		// check if login is success
 		startSysco(driver,"1127707", "crazyregular", "crazy123");
@@ -451,6 +453,29 @@ public class TestSyscoOnline extends CommonSysco {
 		SendMailSSL.sendMailAction("Sysco - Offline GP", "Crazy about you");
 	}
 	
+	@Test(priority = 34)
+	public void SamsHudsons_Sysco() throws InterruptedException, MessagingException {
+
+		System.out.println("34, SamsHudsons_Sysco");
+
+		// check if login is success
+		startSysco(driver,"2165278", "037259903", "beachbar1981");
+		
+		// sendMail
+		SendMailSSL.sendMailAction("Sysco - Offline GP", "Sams Hudsons Beach Bar");
+	}
+	
+	@Test(priority = 35)
+	public void JBs_Sysco() throws InterruptedException, MessagingException {
+
+		System.out.println("35, JBs_Sysco");
+
+		// check if login is success
+		startSysco(driver,"2176031", "032192112", "jbs192112");
+		
+		// sendMail
+		SendMailSSL.sendMailAction("Sysco - Offline GP", "JB's on the Beach");
+	}
 	
 	
 }
