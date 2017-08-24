@@ -58,18 +58,18 @@ public class TestSyscoOnline extends CommonSysco {
 //		SendMailSSL.sendMailAction("Sysco", "Boca Lago Country Club");
 //	}
 
-	// @Test(priority = 2)
-	// public void ChefDavid_Sysco() throws InterruptedException,
-	// MessagingException {
-	//
-	// System.out.println("2, ChefDavid_Sysco");
-	//
-	// // check if login is success
-	// startSysco(driver, "Export from Sysco Market", "016778134", "acdc5881");
-	//
-	// //sendMail
-	// SendMailSSL.sendMailAction("Sysco", "Chef David Cuisine");
-	// }
+	 @Test(priority = 2)
+	 public void ChefDavid_Sysco() throws InterruptedException,
+	 MessagingException {
+	
+	 System.out.println("2, ChefDavid_Sysco");
+	
+	 // check if login is success
+	 startSysco(driver, "2483638", "016778134", "acdc5881");
+	
+	 //sendMail
+	 SendMailSSL.sendMailAction("Sysco", "Chef David Cuisine");
+	 }
 
 	@Test(priority = 3)
 	public void Howleys_Sysco() throws InterruptedException, MessagingException {
@@ -450,6 +450,7 @@ public class TestSyscoOnline extends CommonSysco {
 		// sendMail
 		SendMailSSL.sendMailAction("Sysco - Offline GP", "Crazy about you");
 	}
+	
 	
 	
 }
