@@ -49,29 +49,31 @@ public class TestSyscoOnline extends CommonSysco {
 
 
 	@Test(priority = 1)
-	public void Boynton_Sysco() throws InterruptedException, MessagingException {
+	public void Agliolio_Restaurant_Sysco() throws InterruptedException, MessagingException {
 
-		System.out.println("28, Boynton_Sysco");
+		System.out.println("1, Boynton_Sysco");
 
 		// check if login is success
 		startSysco(driver, "1200692", "032584003", "4Flowers");
 
 		// sendMail
 	//	SendMailSSL.sendMailAction("Sysco - Offline GP", "Agliolio Boynton Italian Bistro & Bar");
-		SendMailSSL.sendMailAction("Sysco - Offline GP", "Agliolio Restaurant Boynton");
+		SendMailSSL.sendMailAction("Sysco - Offline GP", "Agliolio Restaurant");
+		//SendMailSSL.sendMailAction("Sysco - Offline GP", "Agliolio Restaurant Wellington");	
+		
 	}
 
-	@Test(priority = 2)
-	public void Wellington_Sysco() throws InterruptedException, MessagingException {
-
-		System.out.println("29, Wellington_Sysco");
-
-		// check if login is success
-		startSysco(driver, "1200698", "032452235", "4Flowers");
-
-		// sendMail
-		//SendMailSSL.sendMailAction("Sysco - Offline GP", "Agliolio Wellington Fresh Pasta & Wine");
-		SendMailSSL.sendMailAction("Sysco - Offline GP", "Agliolio Restaurant Wellington");
-	}
+//	@Test(priority = 2)
+//	public void Wellington_Sysco() throws InterruptedException, MessagingException {
+//
+//		System.out.println("29, Wellington_Sysco");
+//
+//		// check if login is success
+//		startSysco(driver, "1200698", "032452235", "4Flowers");
+//
+//		// sendMail
+//		//SendMailSSL.sendMailAction("Sysco - Offline GP", "Agliolio Wellington Fresh Pasta & Wine");
+//		SendMailSSL.sendMailAction("Sysco - Offline GP", "Agliolio Restaurant Wellington");
+//	}
 
 }
