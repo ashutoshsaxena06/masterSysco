@@ -111,6 +111,10 @@ public class CommonSysco {
 			WebElement chk_IncludePricing = driver.findElement(By.xpath("//input[@id='expIncludePricingCheckBox']"));
 			chk_IncludePricing.click();
 			System.out.println("checked to Include Pricing");
+			
+			WebElement chk_IncludeStatus = driver.findElement(By.xpath("//input[@id='expIncludePSMSCheckBox']"));
+			chk_IncludeStatus.click();
+			System.out.println("checked to Include Status");
 
 			WebElement btn_Export = wait.until(ExpectedConditions
 					.elementToBeClickable(driver.findElement(By.xpath("//div/button[contains(.,'Export')]"))));
