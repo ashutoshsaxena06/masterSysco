@@ -30,12 +30,10 @@ public class TestSyscoOnline extends CommonSysco {
 	public void beforeTest() throws InterruptedException {
 		System.out.println("***********StartTest*********");
 		RandomAction.deleteFiles("C:\\Users\\Edge\\Downloads");
-		ChromeOptions options = new ChromeOptions();
-		options.addArguments("start-maximized");
 		System.setProperty("webdriver.chrome.driver",
 				"C:\\Users\\Edge\\Downloads\\chromedriver_win32\\chromedriver.exe");
-		driver = new ChromeDriver(options);
-
+		driver = new ChromeDriver();
+		driver.manage().window().maximize();
 	}
 
 	@AfterMethod
