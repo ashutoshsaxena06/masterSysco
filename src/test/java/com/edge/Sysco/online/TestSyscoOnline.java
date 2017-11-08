@@ -30,9 +30,13 @@ public class TestSyscoOnline extends CommonSysco {
 	public void beforeTest() throws InterruptedException {
 		System.out.println("***********StartTest*********");
 		RandomAction.deleteFiles("C:\\Users\\Edge\\Downloads");
+		System.setProperty("webdriver.chrome.driver", "C:\\projects\\test\\chromedriver.exe");
+		ChromeOptions options = new ChromeOptions();
+		options.addArguments("test-type");
+		options.addArguments("--disable-extensions");
 		System.setProperty("webdriver.chrome.driver",
 				"C:\\Users\\Edge\\Downloads\\chromedriver_win32\\chromedriver.exe");
-		driver = new ChromeDriver();
+		driver = new ChromeDriver(options);
 		driver.manage().window().maximize();
 	}
 
@@ -45,7 +49,6 @@ public class TestSyscoOnline extends CommonSysco {
 		}
 	}
 
-
 	@Test(priority = 1)
 	public void Agliolio_Restaurant_Sysco() throws InterruptedException, MessagingException {
 
@@ -55,23 +58,28 @@ public class TestSyscoOnline extends CommonSysco {
 		startSysco(driver, "1200698", "032584003", "4Flowers");
 
 		// sendMail
-	//	SendMailSSL.sendMailAction("Sysco - Offline GP", "Agliolio Boynton Italian Bistro & Bar");
+		// SendMailSSL.sendMailAction("Sysco - Offline GP", "Agliolio Boynton
+		// Italian Bistro & Bar");
 		SendMailSSL.sendMailAction("Sysco - Offline GP", "Agliolio Restaurant");
-		//SendMailSSL.sendMailAction("Sysco - Offline GP", "Agliolio Restaurant Wellington");	
-		
+		// SendMailSSL.sendMailAction("Sysco - Offline GP", "Agliolio Restaurant
+		// Wellington");
+
 	}
 
-//	@Test(priority = 2)
-//	public void Wellington_Sysco() throws InterruptedException, MessagingException {
-//
-//		System.out.println("29, Wellington_Sysco");
-//
-//		// check if login is success
-//		startSysco(driver, "1200698", "032452235", "4Flowers");
-//
-//		// sendMail
-//		//SendMailSSL.sendMailAction("Sysco - Offline GP", "Agliolio Wellington Fresh Pasta & Wine");
-//		SendMailSSL.sendMailAction("Sysco - Offline GP", "Agliolio Restaurant Wellington");
-//	}
+	// @Test(priority = 2)
+	// public void Wellington_Sysco() throws InterruptedException,
+	// MessagingException {
+	//
+	// System.out.println("29, Wellington_Sysco");
+	//
+	// // check if login is success
+	// startSysco(driver, "1200698", "032452235", "4Flowers");
+	//
+	// // sendMail
+	// //SendMailSSL.sendMailAction("Sysco - Offline GP", "Agliolio Wellington
+	// Fresh Pasta & Wine");
+	// SendMailSSL.sendMailAction("Sysco - Offline GP", "Agliolio Restaurant
+	// Wellington");
+	// }
 
 }
