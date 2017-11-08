@@ -32,12 +32,10 @@ public class TestSyscoOnline extends CommonSysco {
 		RandomAction.deleteFiles("C:\\Users\\Edge\\Downloads");
 		System.setProperty("webdriver.chrome.driver", "C:\\projects\\test\\chromedriver.exe");
 		ChromeOptions options = new ChromeOptions();
-		options.addArguments("test-type");
-		options.addArguments("--disable-extensions");
+		options.addArguments("start-maximized");
 		System.setProperty("webdriver.chrome.driver",
 				"C:\\Users\\Edge\\Downloads\\chromedriver_win32\\chromedriver.exe");
 		driver = new ChromeDriver(options);
-		driver.manage().window().maximize();
 	}
 
 	@AfterMethod
