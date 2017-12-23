@@ -163,7 +163,7 @@ public class TestSyscoExecutor extends CommonSysco {
 				String status;
 				// if list is not empty
 				logger.info(restaurant_name + " for purveryor " + purveyor + " is Active !!");
-				if (listname != null && listname.length() == 0) {
+				if (listname != null && listname.length() != 0) {
 					result = startSysco(driver, listname.trim(), username.trim(), password.trim());
 					status = "OG export Failed !";
 				} else { // default OG
