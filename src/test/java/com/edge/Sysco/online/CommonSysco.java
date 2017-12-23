@@ -2,6 +2,7 @@ package com.edge.Sysco.online;
 
 import java.util.concurrent.TimeUnit;
 
+import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
@@ -18,6 +19,7 @@ public class CommonSysco {
 
 	public static WebDriverWait wait;
 	public static WebDriver driver;
+	private final static Logger logger = Logger.getLogger(TestSyscoExecutor.class);
 
 	public Boolean startSysco(WebDriver driver, String listName, String userID, String pwd) throws InterruptedException {
 
@@ -41,7 +43,7 @@ public class CommonSysco {
 			Thread.sleep(2000);
 			if (RandomAction.isFramePresent(driver) == true) {
 				driver.switchTo().frame("botFrame");
-				System.out.println("switched to botFrame");
+				logger.info("switched to botFrame");
 			}
 
 			// Click on Sysco Market Express
@@ -51,7 +53,7 @@ public class CommonSysco {
 			Assert.assertEquals(btn_SyscoMarketExpress.isDisplayed(), true);
 
 			btn_SyscoMarketExpress.click();
-			System.out.println("Sysco market express clicked");
+			logger.info("Sysco market express clicked");
 
 			Thread.sleep(2000);
 
@@ -59,7 +61,7 @@ public class CommonSysco {
 			WebElement lnk_List = wait.until(ExpectedConditions
 					.elementToBeClickable(driver.findElement(By.xpath("//li/a[contains(@id,'listTab')]"))));
 			lnk_List.click();
-			System.out.println("Clicked On List option");
+			logger.info("Clicked On List option");
 
 			Thread.sleep(2000);
 
@@ -71,15 +73,15 @@ public class CommonSysco {
 			// Choose List
 			// List<WebElement> OG_Lists
 			// =driver.findElements(By.xpath("//table[@id='sysRecomGrid']/*/tr"));
-			// System.out.println("No. of Rows in My List :-" +
+			// logger.info("No. of Rows in My List :-" +
 			// OG_Lists.size());
 			//
 			// Thread.sleep(2000);
 			// // Select list
 			// for (WebElement List_Elements : OG_Lists) {
-			// // System.out.println(List_Elements.getText());
+			// // logger.info(List_Elements.getText());
 			// String OG_Element = List_Elements.getAttribute("id");
-			// System.out.println(OG_Element);
+			// logger.info(OG_Element);
 			// if (OG_Element.equalsIgnoreCase(listName)) {
 			// driver.findElement(By.xpath("//table[@id='sysRecomGrid']/*/*/td/a[contains(.,"+
 			// listName +")]")).click();
@@ -93,10 +95,10 @@ public class CommonSysco {
 			Select ddl_MoreTools = new Select(
 					wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.id("moreListToolsTop")))));
 			ddl_MoreTools.selectByVisibleText("Export List");
-			System.out.println("Selected export list Option from More Tools drop down");
+			logger.info("Selected export list Option from More Tools drop down");
 
 			Thread.sleep(2000);
-			System.out.println("Export window displayed :-" + wait
+			logger.info("Export window displayed :-" + wait
 					.until(ExpectedConditions
 							.visibilityOf(driver.findElement(By.xpath("//div[@id='dialog-for-export']"))))
 					.isDisplayed());
@@ -104,22 +106,22 @@ public class CommonSysco {
 			Select ddl_expFormat = new Select(
 					wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.id("expFormat")))));
 			ddl_expFormat.selectByValue("6");
-			System.out.println("selected value for file type - 6");
+			logger.info("selected value for file type - 6");
 
 			WebElement chk_IncludePricing = driver.findElement(By.xpath("//input[@id='expIncludePricingCheckBox']"));
 			chk_IncludePricing.click();
-			System.out.println("checked to Include Pricing");
+			logger.info("checked to Include Pricing");
 			
 			WebElement chk_IncludeStatus = driver.findElement(By.xpath("//input[@id='expIncludePSMSCheckBox']"));
 			chk_IncludeStatus.click();
-			System.out.println("checked to Include Status");
+			logger.info("checked to Include Status");
 			
 
 			WebElement btn_Export = wait.until(ExpectedConditions
 					.elementToBeClickable(driver.findElement(By.xpath("//div/button[contains(.,'Export')]"))));
 			Assert.assertEquals(btn_Export.isDisplayed(), true);
 			btn_Export.click();
-			System.out.println("clicked on Export");
+			logger.info("clicked on Export");
 
 			Thread.sleep(180000);
 
@@ -132,7 +134,7 @@ public class CommonSysco {
 			WebElement inp_Close = wait.until(
 					ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//div/input[@id='close']"))));
 			inp_Close.click();
-			System.out.println("Application closed");
+			logger.info("Application closed");
 
 		} catch (WebDriverException we) {
 			we.printStackTrace();
@@ -166,7 +168,7 @@ public class CommonSysco {
 				.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@id='submit-button']/a"))));
 		img_Login.click();
 
-		System.out.println("Login Success");
+		logger.info("Login Success");
 
 	}
 
@@ -175,7 +177,7 @@ public class CommonSysco {
 				ExpectedConditions.visibilityOf(driver.findElement((By.xpath("//td[@src='images/logo_sysco.png']")))))
 				.isDisplayed()) {
 
-			System.out.println("Login Success");
+			logger.info("Login Success");
 		}
 	}
 
@@ -183,11 +185,11 @@ public class CommonSysco {
 		// TODO Auto-generated method stub
 		try {
 			if (driver.findElement(By.xpath("//td/*/*[contains(.,'Already Logged In')]")).isDisplayed()) {
-				System.out.println("User already logged in !!!");
+				logger.info("User already logged in !!!");
 				// driver.findElement(By.xpath("//input[contains(@type,'Password')]")).sendKeys("bocalago2016");
 				// driver.findElement(By.xpath("//input[@value='Force
 				// Login']")).click();
-				// System.out.println("forced login");
+				// logger.info("forced login");
 			}
 			return true;
 		} catch (WebDriverException e) {
@@ -222,7 +224,7 @@ public class CommonSysco {
 			Thread.sleep(2000);
 			if (RandomAction.isFramePresent(driver) == true) {
 				driver.switchTo().frame("botFrame");
-				System.out.println("switched to botFrame");
+				logger.info("switched to botFrame");
 			}
 
 			// Click on Sysco Market Express
@@ -232,7 +234,7 @@ public class CommonSysco {
 			Assert.assertEquals(btn_SyscoMarketExpress.isDisplayed(), true);
 
 			btn_SyscoMarketExpress.click();
-			System.out.println("Sysco market express clicked");
+			logger.info("Sysco market express clicked");
 
 			Thread.sleep(3000);
 			
@@ -246,7 +248,7 @@ public class CommonSysco {
 			WebElement lnk_List = wait.until(ExpectedConditions
 					.elementToBeClickable(driver.findElement(By.xpath("//li/a[contains(@id,'listTab')]"))));
 			lnk_List.click();
-			System.out.println("Clicked On List option");
+			logger.info("Clicked On List option");
 
 			Thread.sleep(2000);
 
@@ -258,15 +260,15 @@ public class CommonSysco {
 			// Choose List
 			// List<WebElement> OG_Lists
 			// =driver.findElements(By.xpath("//table[@id='sysRecomGrid']/*/tr"));
-			// System.out.println("No. of Rows in My List :-" +
+			// logger.info("No. of Rows in My List :-" +
 			// OG_Lists.size());
 			//
 			// Thread.sleep(2000);
 			// // Select list
 			// for (WebElement List_Elements : OG_Lists) {
-			// // System.out.println(List_Elements.getText());
+			// // logger.info(List_Elements.getText());
 			// String OG_Element = List_Elements.getAttribute("id");
-			// System.out.println(OG_Element);
+			// logger.info(OG_Element);
 			// if (OG_Element.equalsIgnoreCase(listName)) {
 			// driver.findElement(By.xpath("//table[@id='sysRecomGrid']/*/*/td/a[contains(.,"+
 			// listName +")]")).click();
@@ -280,10 +282,10 @@ public class CommonSysco {
 			Select ddl_MoreTools = new Select(
 					wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.id("moreListToolsTop")))));
 			ddl_MoreTools.selectByVisibleText("Export List");
-			System.out.println("Selected export list Option from More Tools drop down");
+			logger.info("Selected export list Option from More Tools drop down");
 
 			Thread.sleep(2000);
-			System.out.println("Export window displayed :-" + wait
+			logger.info("Export window displayed :-" + wait
 					.until(ExpectedConditions
 							.visibilityOf(driver.findElement(By.xpath("//div[@id='dialog-for-export']"))))
 					.isDisplayed());
@@ -291,17 +293,17 @@ public class CommonSysco {
 			Select ddl_expFormat = new Select(
 					wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.id("expFormat")))));
 			ddl_expFormat.selectByValue("6");
-			System.out.println("selected value for file type - 6");
+			logger.info("selected value for file type - 6");
 
 			WebElement chk_IncludePricing = driver.findElement(By.xpath("//input[@id='expIncludePricingCheckBox']"));
 			chk_IncludePricing.click();
-			System.out.println("checked to Include Pricing");
+			logger.info("checked to Include Pricing");
 
 			WebElement btn_Export = wait.until(ExpectedConditions
 					.elementToBeClickable(driver.findElement(By.xpath("//div/button[contains(.,'Export')]"))));
 			Assert.assertEquals(btn_Export.isDisplayed(), true);
 			btn_Export.click();
-			System.out.println("clicked on Export");
+			logger.info("clicked on Export");
 
 			Thread.sleep(180000);
 
@@ -314,7 +316,7 @@ public class CommonSysco {
 			WebElement inp_Close = wait.until(
 					ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//div/input[@id='close']"))));
 			inp_Close.click();
-			System.out.println("Application closed");
+			logger.info("Application closed");
 
 		} catch (WebDriverException we) {
 			we.printStackTrace();
@@ -334,7 +336,7 @@ public class CommonSysco {
 		WebElement lnk_AccountID = wait.until(ExpectedConditions
 				.elementToBeClickable(driver.findElement(By.xpath("//a[contains(text(),'" + accountID + "')]"))));
 		lnk_AccountID.click();
-		System.out.println("Account location ID select - "+ accountID);
+		logger.info("Account location ID select - "+ accountID);
 	}
 
 }
