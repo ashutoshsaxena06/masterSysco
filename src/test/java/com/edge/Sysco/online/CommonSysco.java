@@ -8,7 +8,6 @@ import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
-import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.util.framework.RandomAction;
@@ -20,7 +19,7 @@ public class CommonSysco {
 	public static WebDriverWait wait;
 	public static WebDriver driver;
 
-	public void startSysco(WebDriver driver, String listName, String userID, String pwd) throws InterruptedException {
+	public Boolean startSysco(WebDriver driver, String listName, String userID, String pwd) throws InterruptedException {
 
 		try {
 			driver.get("https://www.esysco.net/EOP/Login");
@@ -147,6 +146,7 @@ public class CommonSysco {
 		 * 
 		 * }
 		 */
+		return true;
 	}
 
 	public static void loginSysco(WebDriver driver, String userName, String password) {

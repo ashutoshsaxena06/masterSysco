@@ -33,10 +33,10 @@ public class TestSyscoExecutor extends CommonSysco {
 	public static String inputFile = "C:\\Users\\Edge\\Desktop\\ExportEngineInput.xlsx";
 	// projectPath + "\\config\\ExportEngineInput.xlsx";
 	public static SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss");
-	public static String reportFile = "C:\\Users\\Edge\\Desktop\\Reports\\SyscoOG_report\\ExportSummary_Cheney_"+ new Date().toString().replace(":", "").replace(" ", "") + ".xlsx";
-			// for Edge - "C:\\Users\\Edge\\Desktop\\Reports\\CheneyOG_report\\ExportSummary_Cheney_" + PageAction.getDate().toString().replace(" ", "_");
+	public static String reportFile = "C:\\Users\\Edge\\Desktop\\Reports\\SyscoOG_report\\ExportSummary_Sysco_"+ new Date().toString().replace(":", "").replace(" ", "") + ".xlsx";
+			// for Edge - "C:\\Users\\Edge\\Desktop\\Reports\\SyscoOG_report\\ExportSummary_Sysco_" + PageAction.getDate().toString().replace(" ", "_");
 //			+ new Date().toString().replace(":", "").replace(" ", "") + ".xlsx";
-	// projectPath+ "\\Output_Summary\\ExportSummary_Cheney_" + new
+	// projectPath+ "\\Output_Summary\\ExportSummary_Sysco_" + new
 	// Date().toString().replace(":", "").replace(" ", "")+".xlsx";
 	public static int acno;
 	public static XSSFWorkbook exportworkbook;
@@ -145,14 +145,14 @@ public class TestSyscoExecutor extends CommonSysco {
 		cell2 = TestSyscoExecutor.exportworkbook.getSheet(project).getRow(TestSyscoExecutor.rowIndex)
 				.createCell(TestSyscoExecutor.AcColdetail);
 		cell2.setCellValue("");
-		// if((cell1=TestCheneyExecutor.exportworkbook.getSheet(project).getRow(TestCheneyExecutor.rowIndex).getCell(TestCheneyExecutor.AcColStatus))==null){
+		// if((cell1=TestSyscoExecutor.exportworkbook.getSheet(project).getRow(TestSyscoExecutor.rowIndex).getCell(TestSyscoExecutor.AcColStatus))==null){
 		// cell1 =
-		// TestCheneyExecutor.exportworkbook.getSheet(project).getRow(TestCheneyExecutor.rowIndex).createCell(TestCheneyExecutor.AcColStatus);
+		// TestSyscoExecutor.exportworkbook.getSheet(project).getRow(TestSyscoExecutor.rowIndex).createCell(TestSyscoExecutor.AcColStatus);
 		// cell1.setCellValue("");
 		// }
-		// if((cell2=TestCheneyExecutor.exportworkbook.getSheet(project).getRow(TestCheneyExecutor.rowIndex).getCell(TestCheneyExecutor.AcColdetail))==null){
+		// if((cell2=TestSyscoExecutor.exportworkbook.getSheet(project).getRow(TestSyscoExecutor.rowIndex).getCell(TestSyscoExecutor.AcColdetail))==null){
 		// cell2 =
-		// TestCheneyExecutor.exportworkbook.getSheet(project).getRow(TestCheneyExecutor.rowIndex).createCell(TestCheneyExecutor.AcColdetail);
+		// TestSyscoExecutor.exportworkbook.getSheet(project).getRow(TestSyscoExecutor.rowIndex).createCell(TestSyscoExecutor.AcColdetail);
 		// cell2.setCellValue("");
 		// }
 		exportstatus = cell1.getStringCellValue();
@@ -160,12 +160,16 @@ public class TestSyscoExecutor extends CommonSysco {
 
 		try {
 			if (active.equalsIgnoreCase("Yes")) {
+				String status;
 				// if list is not empty
 				logger.info(restaurant_name + " for purveryor " + purveyor + " is Active !!");
 				if (listname != null && listname.length() == 0) {
-					result = LoginCheney(driver, listname.trim(), username.trim(), password.trim());
+					result = startSysco(driver, listname.trim(), username.trim(), password.trim());
+					status = "OG export Failed !";
 				} else { // default OG
-					result = LoginCheney(driver, username.trim(), password.trim());
+//					result = startSysco(driver, username.trim(), password.trim());
+					result = false;
+					status = "Error : Please provide valid List name";
 				}
 				if (result.equals(true)) {
 					emailMessageExport = "Pass";
@@ -174,7 +178,7 @@ public class TestSyscoExecutor extends CommonSysco {
 				} else {
 					emailMessageExport = "Failed";
 					exportstatus = "Failed";
-					detailedstatus = "OG export Failed";
+					detailedstatus = status;
 				}
 				Thread.sleep(8000);
 				SendMailSSL.sendMailAction(purveyor.trim(), restaurant_name.trim());
