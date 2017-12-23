@@ -9,7 +9,8 @@ import org.openqa.selenium.WebDriver;
 
 public class ErrRemedy {
 
-	public static void ErrScreenshotCapture(WebDriver driver){
+	public static void ErrScreenshotCapture(WebDriver driver) {
+		// Take screenshot and store as a file format
 		File src = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
 		try {
 			// now copy the screenshot to desired location using copyFile
@@ -19,6 +20,7 @@ public class ErrRemedy {
 			System.out.println("take screenshot failure");
 			e.printStackTrace();
 		}
+
 	}
 
 	public static void ErrReportingMail() {
