@@ -21,7 +21,8 @@ public class CommonSysco {
 	public static WebDriver driver;
 	private final static Logger logger = Logger.getLogger(TestSyscoExecutor.class);
 
-	public Boolean startSysco(WebDriver driver, String listName, String userID, String pwd) throws InterruptedException {
+	public Boolean startSysco(WebDriver driver, String listName, String userID, String pwd)
+			throws InterruptedException {
 
 		try {
 			driver.get("https://www.esysco.net/EOP/Login");
@@ -111,11 +112,10 @@ public class CommonSysco {
 			WebElement chk_IncludePricing = driver.findElement(By.xpath("//input[@id='expIncludePricingCheckBox']"));
 			chk_IncludePricing.click();
 			logger.info("checked to Include Pricing");
-			
+
 			WebElement chk_IncludeStatus = driver.findElement(By.xpath("//input[@id='expIncludePSMSCheckBox']"));
 			chk_IncludeStatus.click();
 			logger.info("checked to Include Status");
-			
 
 			WebElement btn_Export = wait.until(ExpectedConditions
 					.elementToBeClickable(driver.findElement(By.xpath("//div/button[contains(.,'Export')]"))));
@@ -123,7 +123,7 @@ public class CommonSysco {
 			btn_Export.click();
 			logger.info("clicked on Export");
 
-			Thread.sleep(180000);
+			Thread.sleep(80000);
 
 			WebElement lnk_Close = wait.until(ExpectedConditions
 					.elementToBeClickable(driver.findElement(By.xpath("//div/a[contains(.,'Close')]"))));
@@ -135,20 +135,21 @@ public class CommonSysco {
 					ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//div/input[@id='close']"))));
 			inp_Close.click();
 			logger.info("Application closed");
+			return true;
 
 		} catch (WebDriverException we) {
 			we.printStackTrace();
-			Assert.assertFalse(true);
+			return false;
+
 		} catch (Exception e) {
 			e.printStackTrace();
-			Assert.assertFalse(true);
+			return false;
 		}
 		/*
 		 * finally {
 		 * 
 		 * }
 		 */
-		return true;
 	}
 
 	public static void loginSysco(WebDriver driver, String userName, String password) {
@@ -237,9 +238,10 @@ public class CommonSysco {
 			logger.info("Sysco market express clicked");
 
 			Thread.sleep(3000);
-			
-			if (wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath(".//*[@id='customer-select-popup']")))).isDisplayed())
-			{
+
+			if (wait.until(
+					ExpectedConditions.visibilityOf(driver.findElement(By.xpath(".//*[@id='customer-select-popup']"))))
+					.isDisplayed()) {
 				selectAccount(AccountID);
 			}
 
@@ -336,7 +338,7 @@ public class CommonSysco {
 		WebElement lnk_AccountID = wait.until(ExpectedConditions
 				.elementToBeClickable(driver.findElement(By.xpath("//a[contains(text(),'" + accountID + "')]"))));
 		lnk_AccountID.click();
-		logger.info("Account location ID select - "+ accountID);
+		logger.info("Account location ID select - " + accountID);
 	}
 
 }

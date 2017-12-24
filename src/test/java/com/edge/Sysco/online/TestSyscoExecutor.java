@@ -160,27 +160,26 @@ public class TestSyscoExecutor extends CommonSysco {
 
 		try {
 			if (active.equalsIgnoreCase("Yes")) {
-				String status;
 				// if list is not empty
 				logger.info(restaurant_name + " for purveryor " + purveyor + " is Active !!");
 				if (listname != null && listname.length() != 0) {
 					result = startSysco(driver, listname.trim(), username.trim(), password.trim());
-					status = "OG export Failed !";
+					if (result.equals(true)) {
+						emailMessageExport = "Pass";
+						exportstatus = "Pass";
+						detailedstatus = "OG exported succesfully";
+					} else {
+						emailMessageExport = "Failed";
+						exportstatus = "Failed";
+						detailedstatus = "Some technical issue ocurred during export";
+					}
 				} else { // default OG
 //					result = startSysco(driver, username.trim(), password.trim());
-					result = false;
-					status = "Error : Please provide valid List name";
-				}
-				if (result.equals(true)) {
-					emailMessageExport = "Pass";
-					exportstatus = "Pass";
-					detailedstatus = "OG exported succesfully";
-				} else {
-					emailMessageExport = "Failed";
 					exportstatus = "Failed";
-					detailedstatus = status;
+					detailedstatus = "Error : Please provide valid List name";
 				}
-				Thread.sleep(8000);
+				
+				Thread.sleep(5000);
 				SendMailSSL.sendMailAction(purveyor.trim(), restaurant_name.trim());
 			} else {
 				logger.info(restaurant_name + " for purveryor " + purveyor + " is not Active !!");
