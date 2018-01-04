@@ -18,7 +18,7 @@ public class Constant {
 	
 	public static final  String saveDirectoryOG= "";
 	
-	public static final  String sendMailTo= "deonlinemacro@gmail.com";
+	public static final  String sendMailTo= "esave.customerservice@gmail.com";
 	
 	public static final  String[] reportTo= new String[]{"ashutoshsaxena06@gmail.com","raj.esave@gmail.com","dawn@diningedge.com","frank@diningedge.com"};
 
