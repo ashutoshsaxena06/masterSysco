@@ -11,6 +11,8 @@ import org.apache.log4j.Logger;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.openqa.selenium.By;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterTest;
@@ -131,8 +133,16 @@ public class TestSyscoExecutor extends CommonSysco {
 	}
 
 	@Test(dataProvider = "testData")
-	public void Export_Mail_OG(String active, String accountID, String purveyor, String restaurant_name,
-			String username, String password, String listname, String exportstatus, String detailedstatus) {
+	public void Export_Mail_OG(String active,
+							   String accountID, 
+							   String purveyor, 
+							   String restaurant_name,
+							   String username, 
+							   String password, 
+							   String listname, 
+							   String accountNumber,
+							   String exportstatus, 
+							   String detailedstatus) {
 		Boolean result;
 		logger.info("Inside OG Export : Started exporting OG for different accounts");
 		XSSFCell cell1, cell2;
@@ -163,7 +173,12 @@ public class TestSyscoExecutor extends CommonSysco {
 				// if list is not empty
 				logger.info(restaurant_name + " for purveryor " + purveyor + " is Active !!");
 				if (listname != null && listname.length() != 0) {
-					result = startSysco(driver, listname.trim(), username.trim(), password.trim());
+					if (accountNumber != null && accountNumber.length() != 0) {
+						result = startSysco(driver, accountNumber.trim(), listname.trim(), username.trim(), password.trim());
+					}else {
+						result = startSysco(driver, listname.trim(), username.trim(), password.trim());
+					}
+					
 					if (result.equals(true)) {
 						emailMessageExport = "Pass";
 						exportstatus = "Pass";
