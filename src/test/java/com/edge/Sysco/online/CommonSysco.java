@@ -200,15 +200,14 @@ public class CommonSysco {
 
 	}
 
-	public void startSysco(WebDriver driver, String AccountID, String listName, String userID, String pwd)
+	public boolean startSysco(WebDriver driver, String AccountID, String listName, String userID, String pwd)
 			throws InterruptedException {
+
 
 		try {
 			driver.get("https://www.esysco.net/EOP/Login");
 			// Wait For Page To Load
 			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-
-			driver.manage().deleteAllCookies();
 
 			wait = new WebDriverWait(driver, 30);
 
@@ -237,15 +236,14 @@ public class CommonSysco {
 			btn_SyscoMarketExpress.click();
 			logger.info("Sysco market express clicked");
 
-			Thread.sleep(3000);
+			Thread.sleep(2000);
 
 			if (wait.until(
 					ExpectedConditions.visibilityOf(driver.findElement(By.xpath(".//*[@id='customer-select-popup']"))))
 					.isDisplayed()) {
 				selectAccount(AccountID);
 			}
-
-			Thread.sleep(2000);
+			
 			// click List link
 			WebElement lnk_List = wait.until(ExpectedConditions
 					.elementToBeClickable(driver.findElement(By.xpath("//li/a[contains(@id,'listTab')]"))));
@@ -301,13 +299,17 @@ public class CommonSysco {
 			chk_IncludePricing.click();
 			logger.info("checked to Include Pricing");
 
+			WebElement chk_IncludeStatus = driver.findElement(By.xpath("//input[@id='expIncludePSMSCheckBox']"));
+			chk_IncludeStatus.click();
+			logger.info("checked to Include Status");
+
 			WebElement btn_Export = wait.until(ExpectedConditions
 					.elementToBeClickable(driver.findElement(By.xpath("//div/button[contains(.,'Export')]"))));
 			Assert.assertEquals(btn_Export.isDisplayed(), true);
 			btn_Export.click();
 			logger.info("clicked on Export");
 
-			Thread.sleep(180000);
+			Thread.sleep(80000);
 
 			WebElement lnk_Close = wait.until(ExpectedConditions
 					.elementToBeClickable(driver.findElement(By.xpath("//div/a[contains(.,'Close')]"))));
@@ -319,19 +321,16 @@ public class CommonSysco {
 					ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//div/input[@id='close']"))));
 			inp_Close.click();
 			logger.info("Application closed");
+			return true;
 
 		} catch (WebDriverException we) {
 			we.printStackTrace();
-			Assert.assertFalse(true);
+			return false;
+
 		} catch (Exception e) {
 			e.printStackTrace();
-			Assert.assertFalse(true);
+			return false;
 		}
-		/*
-		 * finally {
-		 * 
-		 * }
-		 */
 	}
 
 	private void selectAccount(String accountID) {
