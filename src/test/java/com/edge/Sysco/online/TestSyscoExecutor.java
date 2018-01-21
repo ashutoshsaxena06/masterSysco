@@ -21,8 +21,8 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import com.util.framework.CommonSysco;
 import com.util.framework.ExcelFunctions;
-import com.util.framework.PageAction;
 import com.util.framework.RandomAction;
 import com.util.framework.SendMailSSL;
 
@@ -97,7 +97,7 @@ public class TestSyscoExecutor extends CommonSysco {
 		// to get the browser on which the UI test has to be performed.
 		System.out.println("***********StartTest*********");
 		RandomAction.deleteFiles("C:\\Users\\Edge\\Downloads");
-		driver = PageAction.openBrowser("Chrome", path);
+		driver = RandomAction.openBrowser("Chrome", path);
 		logger.info("Invoked browser .. ");
 	}
 
@@ -195,7 +195,7 @@ public class TestSyscoExecutor extends CommonSysco {
 				}
 				
 				Thread.sleep(5000);
-				SendMailSSL.sendMailAction(purveyor.trim(), restaurant_name.trim());
+				SendMailSSL.sendMailActionCsvDE(purveyor.trim(), restaurant_name.trim());
 			} else {
 				logger.info(restaurant_name + " for purveryor " + purveyor + " is not Active !!");
 				exportstatus = "Not Active";
