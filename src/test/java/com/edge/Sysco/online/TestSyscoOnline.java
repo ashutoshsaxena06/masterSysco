@@ -14,6 +14,7 @@ import com.util.framework.RandomAction;
 import com.util.framework.SendMailSSL;
 
 public class TestSyscoOnline extends CommonSysco {
+	public static String path = System.getProperty("user.home")+"\\Downloads\\chromedriver_win32\\chromedriver.exe";
 
 	@BeforeClass
 	public void setup() {
@@ -29,13 +30,9 @@ public class TestSyscoOnline extends CommonSysco {
 	@BeforeMethod
 	public void beforeTest() throws InterruptedException {
 		System.out.println("***********StartTest*********");
-		RandomAction.deleteFiles("C:\\Users\\Edge\\Downloads");
-		System.setProperty("webdriver.chrome.driver", "C:\\projects\\test\\chromedriver.exe");
-		ChromeOptions options = new ChromeOptions();
-		options.addArguments("start-maximized");
-		System.setProperty("webdriver.chrome.driver",
-				"C:\\Users\\Edge\\Downloads\\chromedriver_win32\\chromedriver.exe");
-		driver = new ChromeDriver(options);
+		RandomAction.deleteFiles(System.getProperty("user.home")+"\\Downloads");
+		driver = RandomAction.openBrowser("Chrome", path);
+		System.out.println("Invoked browser .. ");
 	}
 
 	@AfterMethod
@@ -58,26 +55,11 @@ public class TestSyscoOnline extends CommonSysco {
 		// sendMail
 		// SendMailSSL.sendMailAction("Sysco - Offline GP", "Agliolio Boynton
 		// Italian Bistro & Bar");
-		SendMailSSL.sendMailAction("Sysco - Offline GP", "Agliolio Restaurant");
+		SendMailSSL.sendMailActionCsvDE("Sysco - Offline GP", "Agliolio Restaurant");
 		// SendMailSSL.sendMailAction("Sysco - Offline GP", "Agliolio Restaurant
 		// Wellington");
 
 	}
 
-	// @Test(priority = 2)
-	// public void Wellington_Sysco() throws InterruptedException,
-	// MessagingException {
-	//
-	// System.out.println("29, Wellington_Sysco");
-	//
-	// // check if login is success
-	// startSysco(driver, "1200698", "032452235", "4Flowers");
-	//
-	// // sendMail
-	// //SendMailSSL.sendMailAction("Sysco - Offline GP", "Agliolio Wellington
-	// Fresh Pasta & Wine");
-	// SendMailSSL.sendMailAction("Sysco - Offline GP", "Agliolio Restaurant
-	// Wellington");
-	// }
-
+	
 }
