@@ -26,6 +26,8 @@ import com.util.framework.ExcelFunctions;
 import com.util.framework.RandomAction;
 import com.util.framework.SendMailSSL;
 
+import junit.framework.Assert;
+
 public class TestSyscoExecutor extends CommonSysco {
 
 	static final int maxtry = 3;
@@ -212,6 +214,7 @@ public class TestSyscoExecutor extends CommonSysco {
 			cell1.setCellValue(exportstatus);
 			cell2.setCellValue(detailedstatus);
 			logger.info("Technical issue occured during export for restaurant - "+restaurant_name);
+			Assert.assertTrue(false);
 		}
 		logger.info(emailMessageExport.trim());
 	}
