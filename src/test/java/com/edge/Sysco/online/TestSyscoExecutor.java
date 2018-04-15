@@ -49,7 +49,7 @@ public class TestSyscoExecutor extends CommonSysco {
 	public static String currList = "";
 	public static String emailMessageExport = "";
 	public static String path = "C:\\Users\\Edge\\Downloads\\chromedriver_win32\\chromedriver.exe";
-	public static String project = "Sysco";
+	public static String project = "Sysco1";
 
 	private final static Logger logger = Logger.getLogger(TestSyscoExecutor.class);
 
