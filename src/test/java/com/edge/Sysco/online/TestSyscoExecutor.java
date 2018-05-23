@@ -49,7 +49,6 @@ public class TestSyscoExecutor extends CommonSysco {
 	public static String currList = "";
 	public static String emailMessageExport = "";
 	public static String path = "C:\\Users\\Edge\\Downloads\\chromedriver_win32\\chromedriver.exe";
-	public static String d = "";
 	public static String project = "Sysco" ;
 
 	private final static Logger logger = Logger.getLogger(TestSyscoExecutor.class);
@@ -67,7 +66,6 @@ public class TestSyscoExecutor extends CommonSysco {
 		inputsheet = exportworkbook.getSheet(project);
 		AcColStatus = ExcelFunctions.getColumnNumber("Export Status", inputsheet);
 		AcColdetail = ExcelFunctions.getColumnNumber("Detailed Export Status", inputsheet);
-		project = project +d;
 		logger.info("project : " + project);
 		logger.info("Exiting before data.");
 		// copy config file to report folder
