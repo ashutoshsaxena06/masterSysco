@@ -172,12 +172,8 @@ public class TestSyscoExecutor extends CommonSysco {
 				// if list is not empty
 				logger.info(restaurant_name + " for purveryor " + purveyor + " is Active !!");
 				if (listname != null && listname.length() != 0) {
-					if (accountNumber != null && accountNumber.length() != 0) {
-						result = startSysco(driver, accountNumber.trim(), listname.trim(), username.trim(), password.trim());
-					}else {
-						result = startSysco(driver, listname.trim(), username.trim(), password.trim());
-					}
-					
+					result = startSysco(driver, accountNumber.trim(), listname.trim(), username.trim(),
+							password.trim());
 					if (result.equals(true)) {
 						emailMessageExport = "Pass";
 						exportstatus = "Pass";
@@ -188,7 +184,7 @@ public class TestSyscoExecutor extends CommonSysco {
 						detailedstatus = "Some technical issue ocurred during export";
 					}
 				} else { // default OG
-//					result = startSysco(driver, username.trim(), password.trim());
+					// result = startSysco(driver, username.trim(), password.trim());
 					exportstatus = "Failed";
 					detailedstatus = "Error : Please provide valid List name";
 				}
