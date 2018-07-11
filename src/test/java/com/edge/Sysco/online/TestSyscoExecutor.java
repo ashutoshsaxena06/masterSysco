@@ -34,9 +34,12 @@ public class TestSyscoExecutor extends CommonSysco {
 	public static String inputFile = "C:\\Users\\Edge\\Desktop\\ExportEngineInput.xlsx";
 	// projectPath + "\\config\\ExportEngineInput.xlsx";
 	public static SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss");
-	public static String reportFile = "C:\\Users\\Edge\\Desktop\\Reports\\SyscoOG_report\\ExportSummary_Sysco_"+ new Date().toString().replace(":", "").replace(" ", "") + ".xlsx";
-			// for Edge - "C:\\Users\\Edge\\Desktop\\Reports\\SyscoOG_report\\ExportSummary_Sysco_" + PageAction.getDate().toString().replace(" ", "_");
-//			+ new Date().toString().replace(":", "").replace(" ", "") + ".xlsx";
+	public static String reportFile = "C:\\Users\\Edge\\Desktop\\Reports\\SyscoOG_report\\ExportSummary_Sysco_"
+			+ new Date().toString().replace(":", "").replace(" ", "") + ".xlsx";
+	// for Edge -
+	// "C:\\Users\\Edge\\Desktop\\Reports\\SyscoOG_report\\ExportSummary_Sysco_" +
+	// PageAction.getDate().toString().replace(" ", "_");
+	// + new Date().toString().replace(":", "").replace(" ", "") + ".xlsx";
 	// projectPath+ "\\Output_Summary\\ExportSummary_Sysco_" + new
 	// Date().toString().replace(":", "").replace(" ", "")+".xlsx";
 	public static int acno;
@@ -132,16 +135,9 @@ public class TestSyscoExecutor extends CommonSysco {
 	}
 
 	@Test(dataProvider = "testData")
-	public void Export_Mail_OG(String active,
-							   String accountID, 
-							   String purveyor, 
-							   String restaurant_name,
-							   String username, 
-							   String password, 
-							   String listname, 
-							   String accountNumber,
-							   String exportstatus, 
-							   String detailedstatus) {
+	public void Export_Mail_OG(String active, String accountID, String purveyor, String restaurant_name,
+			String username, String password, String listname, String accountNumber, String exportstatus,
+			String detailedstatus) {
 		Boolean result;
 		logger.info("Inside OG Export : Started exporting OG for different accounts");
 		XSSFCell cell1, cell2;
@@ -172,12 +168,8 @@ public class TestSyscoExecutor extends CommonSysco {
 				// if list is not empty
 				logger.info(restaurant_name + " for purveryor " + purveyor + " is Active !!");
 				if (listname != null && listname.length() != 0) {
-					if (accountNumber != null && accountNumber.length() != 0) {
-						result = startSysco(driver, accountNumber.trim(), listname.trim(), username.trim(), password.trim());
-					}else {
-						result = startSysco(driver, listname.trim(), username.trim(), password.trim());
-					}
-					
+					result = startSysco(driver, accountNumber.trim(), listname.trim(), username.trim(),
+							password.trim());
 					if (result.equals(true)) {
 						emailMessageExport = "Pass";
 						exportstatus = "Pass";
@@ -188,11 +180,11 @@ public class TestSyscoExecutor extends CommonSysco {
 						detailedstatus = "Some technical issue ocurred during export";
 					}
 				} else { // default OG
-//					result = startSysco(driver, username.trim(), password.trim());
+					// result = startSysco(driver, username.trim(), password.trim());
 					exportstatus = "Failed";
 					detailedstatus = "Error : Please provide valid List name";
 				}
-				
+
 				Thread.sleep(5000);
 				SendMailSSL.sendMailActionCsvDE(purveyor.trim(), restaurant_name.trim());
 			} else {
@@ -210,7 +202,7 @@ public class TestSyscoExecutor extends CommonSysco {
 			detailedstatus = "Some technical issue ocurred during export";
 			cell1.setCellValue(exportstatus);
 			cell2.setCellValue(detailedstatus);
-			logger.info("Technical issue occured during export for restaurant - "+restaurant_name);
+			logger.info("Technical issue occured during export for restaurant - " + restaurant_name);
 			Assert.assertTrue(false);
 		}
 		logger.info(emailMessageExport.trim());
@@ -221,7 +213,7 @@ public class TestSyscoExecutor extends CommonSysco {
 	public static void sendMail() {
 		try {
 			String emailMsg = "Daily " + project + " OG Export Status: " + RandomAction.getDate();
-			
+
 			SendMailSSL.sendReport(emailMsg, reportFile);
 			logger.info("Email Sent with Attachment");
 		} catch (Exception e) {
