@@ -313,12 +313,11 @@ public class RandomAction {
 			File src = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
 
 			FileUtils.copyFile(src,
-					new File("C:\\Users\\Edge\\Desktop\\Reports\\Screenshots\\" + orderID + ".png")); // System.currentTimeMillis()
+					new File("C:\\Users\\Edge\\Desktop\\Reports\\Screenshots"+ File.separator + orderID + ".png")); // System.currentTimeMillis()
 		}
 
 		catch (Exception e) {
-			System.out.println("Screenshot failed");
-			e.printStackTrace();
+			System.out.println("failed to capture screenshot");
 		}
 	}
 	
