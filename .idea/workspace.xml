@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="78b1132b-dcca-460a-8157-90641a43b811" name="Default Changelist" comment="" />
+    <list default="true" id="02c9008a-4070-49f3-97b8-79ac043c60ef" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -11,17 +11,10 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectId" id="1TFq8KexezGzJbIvAZ0Vy9PSAww" />
+  <component name="ProjectId" id="1TH1nKOiECwa6IzXml1JjKXgAuf" />
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/test/java/com/util/framework" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/pom.xml" />
     <property name="settings.editor.selected.configurable" value="vcs.Git" />
-  </component>
-  <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Workspace\New folder\masterSysco\src\test\java\com\util\framework" />
-      <recent name="C:\Workspace\New folder\masterSysco\src\test\java\com\edge\Sysco\master" />
-      <recent name="C:\Workspace\New folder\masterSysco\src\main" />
-    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -40,11 +33,11 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="78b1132b-dcca-460a-8157-90641a43b811" name="Default Changelist" comment="" />
-      <created>1573066030975</created>
+      <changelist id="02c9008a-4070-49f3-97b8-79ac043c60ef" name="Default Changelist" comment="" />
+      <created>1573102372510</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1573066030975</updated>
+      <updated>1573102372510</updated>
     </task>
     <servers />
   </component>
@@ -53,9 +46,7 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State>
-              <option name="COLUMN_ORDER" />
-            </State>
+            <State />
           </value>
         </entry>
       </map>
