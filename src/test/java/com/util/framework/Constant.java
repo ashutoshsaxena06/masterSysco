@@ -29,6 +29,6 @@ public class Constant {
 	public static final  String sendMailFrom= "onlineweekend.diningedge@gmail.com";
 	
 	public static final  String DownloadFolder= "C:\\Downloads\\";
- 
-	
+
+
 }

@@ -139,8 +139,8 @@ public class CommonSysco {
 	
 	*/
 
-	public static void loginSysco(WebDriver driver, String userName, String password) {
-
+	public static boolean loginSysco(WebDriver driver, String userName, String password) {
+		try {driver.get("https://www.esysco.net/EOP/Login");
 		// Enter username
 		WebElement inp_user = wait.until(
 				ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//input[contains(@id,'USERID')]"))));
@@ -155,9 +155,13 @@ public class CommonSysco {
 		WebElement img_Login = wait
 				.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//img[@id='img_login']"))));
 		img_Login.click();
-
 		logger.info("Login Success");
-
+		return  true;
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 	public static void verifyLogin(WebDriver driver) {
@@ -189,18 +193,12 @@ public class CommonSysco {
 
 	public boolean startSysco(WebDriver driver, String AccountID, String listName, String userID, String pwd)
 			throws InterruptedException {
-
-			driver.get("https://www.esysco.net/EOP/Login");
 			// Wait For Page To Load
 			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-
 			wait = new WebDriverWait(driver, 30);
-
 			// pass login
-		Thread.sleep(5000);
-		loginSysco(driver, userID, pwd);
-
 			Thread.sleep(5000);
+
 			if (RandomAction.isFramePresent(driver) == true) {
 				driver.switchTo().frame("botFrame");
 				logger.info("switched to botFrame");

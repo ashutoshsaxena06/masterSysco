@@ -3,6 +3,7 @@ package com.util.framework;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.comparator.LastModifiedFileComparator;
 import org.apache.commons.io.filefilter.WildcardFileFilter;
+import org.apache.poi.util.SystemOutLogger;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -95,113 +96,6 @@ public class RandomAction {
 
 	}
 
-	public static WebDriver setDownloadFilePath() {
-		// TODO Auto-generated method stub
-		String downloadFilepath = setdownloadDir();
-		HashMap<String, Object> chromePrefs = new HashMap<String, Object>();
-		chromePrefs.put("profile.default_content_settings.popups", 0);
-		chromePrefs.put("download.default_directory", downloadFilepath);
-		ChromeOptions options = new ChromeOptions();
-		options.setExperimentalOption("prefs", chromePrefs);
-		DesiredCapabilities cap = DesiredCapabilities.chrome();
-		cap.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
-		cap.setCapability(ChromeOptions.CAPABILITY, options);
-		WebDriver driver = new ChromeDriver(cap);
-		return driver;
-	}
-
-	public static File getLatestFilefromDirxlsx(String dirPath) {
-
-		File getLatestFilefromDir = null;
-		File dir = new File(dirPath);
-		FileFilter fileFilter = new WildcardFileFilter("*." + "xlsx");
-		File[] files = dir.listFiles(fileFilter);
-
-		if (files.length > 0) {
-			/** The newest file comes first **/
-			Arrays.sort(files, LastModifiedFileComparator.LASTMODIFIED_REVERSE);
-			getLatestFilefromDir = files[0];
-		}
-
-		return getLatestFilefromDir;
-
-		/*
-		 * File dir = new File(dirPath); File[] files = dir.listFiles(); if (files ==
-		 * null || files.length == 0) { return null; }
-		 * 
-		 * File lastModifiedFile = files[0]; for (int i = 1; i < files.length; i++) { if
-		 * (lastModifiedFile.lastModified() < files[i].lastModified()) {
-		 * lastModifiedFile = files[i]; } } return lastModifiedFile;
-		 */
-	}
-	
-	public static File getLatestFilefromDirxls(String dirPath) {
-
-		File getLatestFilefromDir = null;
-		File dir = new File(dirPath);
-		FileFilter fileFilter = new WildcardFileFilter("*." + "xls");
-		File[] files = dir.listFiles(fileFilter);
-
-		if (files.length > 0) {
-			/** The newest file comes first **/
-			Arrays.sort(files, LastModifiedFileComparator.LASTMODIFIED_REVERSE);
-			getLatestFilefromDir = files[0];
-		}
-
-		return getLatestFilefromDir;
-
-		/*
-		 * File dir = new File(dirPath); File[] files = dir.listFiles(); if (files ==
-		 * null || files.length == 0) { return null; }
-		 * 
-		 * File lastModifiedFile = files[0]; for (int i = 1; i < files.length; i++) { if
-		 * (lastModifiedFile.lastModified() < files[i].lastModified()) {
-		 * lastModifiedFile = files[i]; } } return lastModifiedFile;
-		 */
-	}
-
-	public static File getLatestFilefromDirPDF(String dirPath) {
-
-		File getLatestFilefromDir = null;
-		File dir = new File(dirPath);
-		FileFilter fileFilter = new WildcardFileFilter("*." + "pdf");
-		File[] files = dir.listFiles(fileFilter);
-
-		if (files.length > 0) {
-			/** The newest file comes first **/
-			Arrays.sort(files, LastModifiedFileComparator.LASTMODIFIED_REVERSE);
-			getLatestFilefromDir = files[0];
-		}
-
-		return getLatestFilefromDir;
-
-		/*
-		 * File dir = new File(dirPath); File[] files = dir.listFiles(); if (files ==
-		 * null || files.length == 0) { return null; }
-		 * 
-		 * File lastModifiedFile = files[0]; for (int i = 1; i < files.length; i++) { if
-		 * (lastModifiedFile.lastModified() < files[i].lastModified()) {
-		 * lastModifiedFile = files[i]; } } return lastModifiedFile;
-		 */
-	}
-
-	public static File getLatestFilefromDirCsv(String dirPath) {
-
-		File getLatestFilefromDir = null;
-		File dir = new File(dirPath);
-		FileFilter fileFilter = new WildcardFileFilter("*." + "csv");
-		File[] files = dir.listFiles(fileFilter);
-
-		if (files.length > 0) {
-			/** The newest file comes first **/
-			Arrays.sort(files, LastModifiedFileComparator.LASTMODIFIED_REVERSE);
-			getLatestFilefromDir = files[0];
-		}
-
-		return getLatestFilefromDir;
-
-	}
-
 	public static File getLatestFilefromDirCsvGFS(String dirPath) {
 
 		File getLatestFilefromDir = null;
@@ -248,13 +142,17 @@ public class RandomAction {
 	}
 
 	public static void deleteFiles(String path) {
-		File dir = new File(path);
-		// FileUtils.cleanDirectory(dir);
-		for (File file : dir.listFiles())
-			if (!file.isDirectory())
-				file.delete();
-		System.out.println("All files deleted from folder :-" + path);
-
+		try {
+			File dir = new File(path);
+			// FileUtils.cleanDirectory(dir);
+			for (File file : dir.listFiles())
+				if (!file.isDirectory())
+					file.delete();
+			System.out.println("All files deleted from folder :-" + path);
+		}catch (Exception e){
+			System.out.println("no directory found - " + e.getMessage());
+			e.printStackTrace();
+		}
 	}
 
 	public static WebDriver openBrowser(String browser, String path) {
@@ -350,4 +248,19 @@ public class RandomAction {
 		}
 
 	}
+
+    public static File getLatestFilefromDir(String dirPath, String fileType) {
+		File getLatestFilefromDir = null;
+		File dir = new File(dirPath);
+		FileFilter fileFilter = new WildcardFileFilter("*." + fileType);
+		File[] files = dir.listFiles(fileFilter);
+
+		if (files.length > 0) {
+			/** The newest file comes first **/
+			Arrays.sort(files, LastModifiedFileComparator.LASTMODIFIED_REVERSE);
+			getLatestFilefromDir = files[0];
+		}
+
+		return getLatestFilefromDir;
+    }
 }
