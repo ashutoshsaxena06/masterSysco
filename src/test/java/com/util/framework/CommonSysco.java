@@ -141,7 +141,8 @@ public class CommonSysco {
 
 	public static boolean loginSysco(WebDriver driver, String userName, String password) {
 		try {driver.get("https://www.esysco.net/EOP/Login");
-		// Enter username
+			wait = new WebDriverWait(driver, 30);
+			// Enter username
 		WebElement inp_user = wait.until(
 				ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//input[contains(@id,'USERID')]"))));
 		inp_user.sendKeys(userName);
