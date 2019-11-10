@@ -29,7 +29,7 @@ public class TestSyscoOnline extends CommonSysco {
 	@BeforeMethod
 	public void beforeTest() throws InterruptedException {
 		System.out.println("***********StartTest*********");
-		RandomAction.deleteFiles(System.getProperty("user.home")+"\\Downloads");
+		//RandomAction.deleteFiles(System.getProperty("user.home")+"\\Downloads");
 		driver = RandomAction.openBrowser("Chrome", path);
 		System.out.println("Invoked browser .. ");
 	}
@@ -47,14 +47,14 @@ public class TestSyscoOnline extends CommonSysco {
 	public void Agliolio_Restaurant_Sysco() throws InterruptedException, MessagingException {
 
 		System.out.println("1, Boynton_Sysco");
-
+		loginSysco(driver, "032584003", "4Flowers");
 		// check if login is success
 		startSysco(driver,null, "1200692", "032584003", "4Flowers");
 
 		// sendMail
 		// SendMailSSL.sendMailAction("Sysco - Offline GP", "Agliolio Boynton
 		// Italian Bistro & Bar");
-		SendMailSSL.sendMailActionCsvDE("Sysco - Offline GP", "Agliolio Restaurant");
+		SendMailSSL.sendMailAction("Sysco - Offline GP", "Agliolio Restaurant", "csv");
 		// SendMailSSL.sendMailAction("Sysco - Offline GP", "Agliolio Restaurant
 		// Wellington");
 
