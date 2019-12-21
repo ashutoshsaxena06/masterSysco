@@ -2,15 +2,15 @@ package com.edge.Sysco.online;
 
 import javax.mail.MessagingException;
 
+import com.util.framework.CommonSysco;
+import com.util.framework.RandomAction;
+import com.util.framework.SendMailSSL;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import com.util.framework.CommonSysco;
-import com.util.framework.RandomAction;
-import com.util.framework.SendMailSSL;
 
 public class TestSyscoOnline extends CommonSysco {
 	public static String path = System.getProperty("user.home")+"\\Downloads\\chromedriver_win32\\chromedriver.exe";
@@ -54,7 +54,7 @@ public class TestSyscoOnline extends CommonSysco {
 		// sendMail
 		// SendMailSSL.sendMailAction("Sysco - Offline GP", "Agliolio Boynton
 		// Italian Bistro & Bar");
-		SendMailSSL.sendMailActionCsvDE("Sysco - Offline GP", "Agliolio Restaurant");
+		SendMailSSL.sendMailAction("Sysco - Offline GP", "Agliolio Restaurant", "csv");
 		// SendMailSSL.sendMailAction("Sysco - Offline GP", "Agliolio Restaurant
 		// Wellington");
 
