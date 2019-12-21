@@ -29,7 +29,7 @@ public class TestSyscoOnline extends CommonSysco {
 	@BeforeMethod
 	public void beforeTest() throws InterruptedException {
 		System.out.println("***********StartTest*********");
-		//RandomAction.deleteFiles(System.getProperty("user.home")+"\\Downloads");
+		RandomAction.deleteFiles(System.getProperty("user.home")+"\\Downloads");
 		driver = RandomAction.openBrowser("Chrome", path);
 		System.out.println("Invoked browser .. ");
 	}
