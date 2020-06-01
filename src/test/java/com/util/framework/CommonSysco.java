@@ -3,10 +3,8 @@ package com.util.framework;
 import com.util.framework.online.TestSyscoExecutor;
 import org.apache.log4j.Logger;
 import org.junit.Assert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebDriverException;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -257,6 +255,7 @@ public class CommonSysco {
 		WebElement endDateElement = wait.until(ExpectedConditions
 				.elementToBeClickable(driver.findElement(By.xpath("//input[contains(@id,'historyenddate')]"))));
 		endDateElement.sendKeys(TestSyscoExecutor.endDate);
+		new Actions(driver).sendKeys(Keys.ENTER);
 		logger.info("send end date for Custom option");
 
 		WebElement exportLink = wait.until(ExpectedConditions
