@@ -11,9 +11,13 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.testng.Assert;
 import org.testng.annotations.*;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -46,6 +50,8 @@ public class TestSyscoExecutor extends CommonSysco {
     public static String emailMessageExport = "";
     public static String path = System.getProperty("user.home") + "\\Downloads\\chromedriver_win32\\chromedriver.exe";
     public static String project = System.getProperty("sheetName");
+    public static String startDate = "04/01/2020";
+    public static String endDate = "05/01/2020";
     static int retry = 0;
     public static String extentReport = System.getProperty("user.dir") + File.separator + "extentsReport" + File.separator + "Report.html";
     public static ExtentReports er;
@@ -120,8 +126,7 @@ public class TestSyscoExecutor extends CommonSysco {
     @AfterClass
     public static void sendMail() {
         try {
-            String emailMsg = "Daily " + project + " OG Export Status: " + RandomAction.getDate();
-
+            String emailMsg = "Monthly Reports " + project + " OG Export Status: " + RandomAction.getDate();
             SendMailSSL.sendReports(emailMsg, reportFile);
             logger.info("Email Sent with Attachment");
         } catch (Exception e) {
@@ -201,15 +206,24 @@ public class TestSyscoExecutor extends CommonSysco {
             if (active.equalsIgnoreCase("Yes")) {
                 // if list is not empty
                 logger.info(restaurant_name + " for purveryor " + purveyor + " is Active !!");
-                et.log(LogStatus.INFO, restaurant_name + " and purveryor " + purveyor + " and listname is" +listname);
-                if (listname != null && listname.length() != 0) {
-                    if (loginSysco(driver, username.trim(), password.trim())) {
-                        result = startSysco(driver, accountNumber, listname.trim(), username.trim(),
-                                password.trim());
-                    }else {
-                        detailedstatus= "esysco.net website is down or issue with login";
-                    }
+                et.log(LogStatus.INFO, restaurant_name + " and purveryor " + purveyor + " and listname is" + listname);
+                if (listname != null) {
+                    String[] dates = listname.split("-");
+                    startDate = dates[0];
+                    endDate = dates[1];
+                    result = startSysco(driver, accountNumber, listname.trim(), username.trim(),
+                            password.trim());
+                } else {
+                    detailedstatus = "esysco.net website is down or issue with login";
+                }
+                if (loginSysco(driver, username.trim(), password.trim())) {
+
                     if (result.equals(true)) {
+                        Path filePath = RandomAction.getLatestFilefromDir(System.getProperty("user.home") + "\\Downloads\\", "csv").toPath();
+                        Path targetPath = new File(System.getProperty("user.home") + "\\Downloads\\Sysco\\" + "20200601_" + restaurant_name).toPath();
+                        Files.createDirectories(filePath.getParent());
+                        Files.copy(Paths.get(path), targetPath);
+
                         emailMessageExport = "Pass";
                         exportstatus = "Pass";
                         detailedstatus = "OG exported succesfully";
@@ -227,7 +241,6 @@ public class TestSyscoExecutor extends CommonSysco {
                 }
 
                 Thread.sleep(5000);
-                SendMailSSL.sendMailAction(purveyor.trim(), restaurant_name.trim(), "csv");
             } else {
                 logger.info(restaurant_name + " for purveryor " + purveyor + " is not Active !!");
                 exportstatus = "Not Active";

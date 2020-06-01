@@ -1,5 +1,6 @@
 package com.util.framework;
 
+import com.util.framework.online.TestSyscoExecutor;
 import org.apache.log4j.Logger;
 import org.junit.Assert;
 import org.openqa.selenium.By;
@@ -194,133 +195,158 @@ public class CommonSysco {
 
 	public boolean startSysco(WebDriver driver, String AccountID, String listName, String userID, String pwd)
 			throws InterruptedException {
-			// Wait For Page To Load
-			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-			wait = new WebDriverWait(driver, 30);
-			// pass login
-			Thread.sleep(5000);
+		// Wait For Page To Load
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		wait = new WebDriverWait(driver, 30);
+		// pass login
+		Thread.sleep(5000);
 
-			if (RandomAction.isFramePresent(driver) == true) {
-				driver.switchTo().frame("botFrame");
-				logger.info("switched to botFrame");
+		if (RandomAction.isFramePresent(driver) == true) {
+			driver.switchTo().frame("botFrame");
+			logger.info("switched to botFrame");
+		}
+
+		// Click on Sysco Market Express
+		WebElement btn_SyscoMarketExpress = wait.until(ExpectedConditions
+				.elementToBeClickable(driver.findElement(By.xpath("//input[@id='syscoMarketExpress']"))));
+
+		Assert.assertEquals(btn_SyscoMarketExpress.isDisplayed(), true);
+
+		btn_SyscoMarketExpress.click();
+		logger.info("Sysco market express clicked");
+
+		Thread.sleep(2000);
+
+		if (AccountID != null) {
+			if (wait.until(ExpectedConditions
+					.visibilityOf(driver.findElement(By.xpath(".//*[@id='customer-select-popup']"))))
+					.isDisplayed()) {
+				selectAccount(AccountID);
 			}
+		} else {
+			logger.info("No Account id is provided to select - " + AccountID);
+		}
 
-			// Click on Sysco Market Express
-			WebElement btn_SyscoMarketExpress = wait.until(ExpectedConditions
-					.elementToBeClickable(driver.findElement(By.xpath("//input[@id='syscoMarketExpress']"))));
+		// click List link
+		WebElement lnk_List = wait.until(ExpectedConditions
+				.elementToBeClickable(driver.findElement(By.xpath("//li/a[contains(@id,'itemHistoryTab')]"))));
+		lnk_List.click();
+		logger.info("Clicked On Order Guide option");
 
-			Assert.assertEquals(btn_SyscoMarketExpress.isDisplayed(), true);
+		Thread.sleep(2000);
 
-			btn_SyscoMarketExpress.click();
-			logger.info("Sysco market express clicked");
+		// Select list
+//			WebElement lnk_OGname = wait.until(ExpectedConditions.elementToBeClickable(driver
+//					.findElement(By.xpath("//*[@id='" + listName + "']/*/*[contains(text(),'" + listName + "')]"))));
+//			lnk_OGname.click();
+		///  Calendar
+		WebElement calendarDDL = wait.until(ExpectedConditions
+				.elementToBeClickable(driver.findElement(By.xpath("//select[contains(@id,'orderGuideDateRange')]"))));
+		Select select = new Select(calendarDDL);
+		select.selectByValue("0");
+		logger.info("Clicked On DDL for Custom option");
 
-			Thread.sleep(2000);
+		WebElement totalItems = wait.until(ExpectedConditions
+				.elementToBeClickable(driver.findElement(By.xpath("//span[contains(@id,'msgTotal2')]"))));
 
-			if (AccountID != null) {
-				if (wait.until(ExpectedConditions
-						.visibilityOf(driver.findElement(By.xpath(".//*[@id='customer-select-popup']"))))
-						.isDisplayed()) {
-					selectAccount(AccountID);
-				}
-			} else {
-				logger.info("No Account id is provided to select - " + AccountID);
-			}
+		WebElement startDateElement = wait.until(ExpectedConditions
+				.elementToBeClickable(driver.findElement(By.xpath("//input[contains(@id,'historystartdate')]"))));
+		startDateElement.sendKeys(TestSyscoExecutor.startDate);
+		logger.info("send start date for Custom option");
 
-			// click List link
-			WebElement lnk_List = wait.until(ExpectedConditions
-					.elementToBeClickable(driver.findElement(By.xpath("//li/a[contains(@id,'listTab')]"))));
-			lnk_List.click();
-			logger.info("Clicked On List option");
+		WebElement endDateElement = wait.until(ExpectedConditions
+				.elementToBeClickable(driver.findElement(By.xpath("//input[contains(@id,'historyenddate')]"))));
+		endDateElement.sendKeys(TestSyscoExecutor.endDate);
+		logger.info("send end date for Custom option");
 
-			Thread.sleep(2000);
+		WebElement exportLink = wait.until(ExpectedConditions
+				.elementToBeClickable(driver.findElement(By.xpath("//input[contains(@id,'exportOrderGuideLink')]"))));
+		exportLink.click();
+		logger.info("Export link clicked");
 
-			// Select list
-			WebElement lnk_OGname = wait.until(ExpectedConditions.elementToBeClickable(driver
-					.findElement(By.xpath("//*[@id='" + listName + "']/*/*[contains(text(),'" + listName + "')]"))));
-			lnk_OGname.click();
 
-			// Choose List
-			// List<WebElement> OG_Lists
-			// =driver.findElements(By.xpath("//table[@id='sysRecomGrid']/*/tr"));
-			// logger.info("No. of Rows in My List :-" +
-			// OG_Lists.size());
-			//
-			// Thread.sleep(2000);
-			// // Select list
-			// for (WebElement List_Elements : OG_Lists) {
-			// // logger.info(List_Elements.getText());
-			// String OG_Element = List_Elements.getAttribute("id");
-			// logger.info(OG_Element);
-			// if (OG_Element.equalsIgnoreCase(listName)) {
-			// driver.findElement(By.xpath("//table[@id='sysRecomGrid']/*/*/td/a[contains(.,"+
-			// listName +")]")).click();
-			//
-			// }
-			//
-			// }
+		// Choose List
+		// List<WebElement> OG_Lists
+		// =driver.findElements(By.xpath("//table[@id='sysRecomGrid']/*/tr"));
+		// logger.info("No. of Rows in My List :-" +
+		// OG_Lists.size());
+		//
+		// Thread.sleep(2000);
+		// // Select list
+		// for (WebElement List_Elements : OG_Lists) {
+		// // logger.info(List_Elements.getText());
+		// String OG_Element = List_Elements.getAttribute("id");
+		// logger.info(OG_Element);
+		// if (OG_Element.equalsIgnoreCase(listName)) {
+		// driver.findElement(By.xpath("//table[@id='sysRecomGrid']/*/*/td/a[contains(.,"+
+		// listName +")]")).click();
+		//
+		// }
+		//
+		// }
 
-			Thread.sleep(2000);
+		Thread.sleep(5000);
 
-			Select ddl_MoreTools = new Select(
-					wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.id("moreListToolsTop")))));
-			ddl_MoreTools.selectByValue("exportList");
-			logger.info("Selected export list Option from More Tools drop down");
+//		Select ddl_MoreTools = new Select(
+//				wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.id("moreListToolsTop")))));
+//		ddl_MoreTools.selectByValue("exportList");
+//		logger.info("Selected export list Option from More Tools drop down");
 
-			Thread.sleep(2000);
-			logger.info("Export window displayed :-" + wait
-					.until(ExpectedConditions
-							.visibilityOf(driver.findElement(By.xpath("//div[@id='dialog-for-export']"))))
-					.isDisplayed());
+		Thread.sleep(2000);
+		logger.info("Export window displayed :-" + wait
+				.until(ExpectedConditions
+						.visibilityOf(driver.findElement(By.xpath("//div[@id='dialog-for-export']"))))
+				.isDisplayed());
 
-			Select ddl_expFormat = new Select(
-					wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.id("expFormat")))));
-			ddl_expFormat.selectByValue("6");
-			logger.info("selected value for file type - 6");
+		Select ddl_expFormat = new Select(
+				wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.id("expFormat")))));
+		ddl_expFormat.selectByValue("6");
+		logger.info("selected value for file type - 6");
 
-			Thread.sleep(2000);
-			WebElement chk_IncludePricing = driver.findElement(By.xpath("//input[@id='expIncludePricingCheckBox']"));
+		Thread.sleep(2000);
+		WebElement chk_IncludePricing = driver.findElement(By.xpath("//input[@id='expIncludePricingCheckBox']"));
+		chk_IncludePricing.click();
+		if (!chk_IncludePricing.isSelected()) {
 			chk_IncludePricing.click();
-			if (!chk_IncludePricing.isSelected()) {
-				chk_IncludePricing.click();
-				logger.info("checked to Include Pricing");
-			} else {
-				logger.info("Include Pricing already selected");
-			}
-			Thread.sleep(2000);
+			logger.info("checked to Include Pricing");
+		} else {
+			logger.info("Include Pricing already selected");
+		}
+		Thread.sleep(2000);
 
-			WebElement chk_IncludeStatus = driver.findElement(By.xpath("//input[@id='expIncludePSMSCheckBox']"));
-			chk_IncludeStatus.click();
-			logger.info("checked to Include Status - " + chk_IncludeStatus.isSelected());
+		WebElement chk_IncludeStatus = driver.findElement(By.xpath("//input[@id='expIncludePSMSCheckBox']"));
+		chk_IncludeStatus.click();
+		logger.info("checked to Include Status - " + chk_IncludeStatus.isSelected());
 
-			Thread.sleep(2000);
+		Thread.sleep(2000);
 
-			// pre export check
-			if (chk_IncludePricing.isSelected() && chk_IncludeStatus.isSelected()) {
-				logger.info("pre export check status is Ok ");
-				String id = "sysco" + AccountID + " " + RandomAction.getDate();
-				RandomAction.errorScreenshot(driver, id);
-			}
-			
-			WebElement btn_Export = wait.until(ExpectedConditions
-					.elementToBeClickable(driver.findElement(By.xpath("//div/button[contains(.,'Export')]"))));
-			Assert.assertEquals(btn_Export.isDisplayed(), true);
-			btn_Export.click();
-			logger.info("clicked on Export");
+		// pre export check
+		if (chk_IncludePricing.isSelected() && chk_IncludeStatus.isSelected()) {
+			logger.info("pre export check status is Ok ");
+			String id = "sysco" + AccountID + " " + RandomAction.getDate();
+			RandomAction.errorScreenshot(driver, id);
+		}
 
-			Thread.sleep(80000);
+		WebElement btn_Export = wait.until(ExpectedConditions
+				.elementToBeClickable(driver.findElement(By.xpath("//div/button[contains(.,'Export')]"))));
+		Assert.assertEquals(btn_Export.isDisplayed(), true);
+		btn_Export.click();
+		logger.info("clicked on Export");
 
-			WebElement lnk_Close = wait.until(
-					ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//div/a[@id='clsLink']"))));
-			lnk_Close.click();
+		Thread.sleep(80000);
 
-			Thread.sleep(2000);
+		WebElement lnk_Close = wait.until(
+				ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//div/a[@id='clsLink']"))));
+		lnk_Close.click();
 
-			WebElement inp_Close = wait.until(
-					ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//div/input[@id='close']"))));
+		Thread.sleep(2000);
 
-			inp_Close.click();
-			logger.info("Application closed");
-			return true;
+		WebElement inp_Close = wait.until(
+				ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//div/input[@id='close']"))));
+
+		inp_Close.click();
+		logger.info("Application closed");
+		return true;
 	}
 
 
