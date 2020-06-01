@@ -211,8 +211,12 @@ public class TestSyscoExecutor extends CommonSysco {
                     String[] dates = listname.split("-");
                     startDate = dates[0];
                     endDate = dates[1];
-                    result = startSysco(driver, accountNumber, listname.trim(), username.trim(),
-                            password.trim());
+                    if (loginSysco(driver, username.trim(), password.trim())) {
+                        result = startSysco(driver, accountNumber, listname.trim(), username.trim(),
+                                password.trim());
+                    }else {
+                        detailedstatus= "esysco.net website is down or issue with login";
+                    }
                 } else {
                     detailedstatus = "esysco.net website is down or issue with login";
                 }
