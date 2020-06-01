@@ -246,8 +246,8 @@ public class CommonSysco {
 		select.selectByValue("0");
 		logger.info("Clicked On DDL for Custom option");
 
-		WebElement totalItems = wait.until(ExpectedConditions
-				.elementToBeClickable(driver.findElement(By.xpath("//span[contains(@id,'msgTotal2')]"))));
+//		WebElement totalItems = wait.until(ExpectedConditions
+//				.elementToBeClickable(driver.findElement(By.xpath("//span[contains(@id,'msgTotal2')]"))));
 
 		WebElement startDateElement = wait.until(ExpectedConditions
 				.elementToBeClickable(driver.findElement(By.xpath("//input[contains(@id,'historystartdate')]"))));
