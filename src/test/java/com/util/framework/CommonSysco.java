@@ -251,14 +251,29 @@ public class CommonSysco {
 
 			WebElement startDateElement = wait.until(ExpectedConditions
 					.elementToBeClickable(driver.findElement(By.xpath("//input[contains(@id,'historystartdate')]"))));
-			startDateElement.sendKeys(TestSyscoExecutor.startDate);
-			logger.info("send start date for Custom option");
+			startDateElement.click();
+			Thread.sleep(2000);
+
+			int[] startDates = getMMDDYYYY(TestSyscoExecutor.startDate);
+			WebElement monthPicker = wait.until(ExpectedConditions
+					.elementToBeClickable(driver.findElement(By.xpath("//select[contains(@class,'ui-datepicker-month')]"))));
+			Select select1 = new Select(monthPicker);
+			select1.selectByValue(String.valueOf(startDates[0] - 1));
 			Thread.sleep(5000);
+			driver.findElement(By.xpath("//td/a[text()='1']")).click();
+			Thread.sleep(2000);
 
 			WebElement endDateElement = wait.until(ExpectedConditions
 					.elementToBeClickable(driver.findElement(By.xpath("//input[contains(@id,'historyenddate')]"))));
-			endDateElement.sendKeys(TestSyscoExecutor.endDate);
-			new Actions(driver).sendKeys(Keys.ENTER);
+			endDateElement.click();
+			int[] endDates = getMMDDYYYY(TestSyscoExecutor.endDate);
+			WebElement monthPicker1 = wait.until(ExpectedConditions
+					.elementToBeClickable(driver.findElement(By.xpath("//select[contains(@class,'ui-datepicker-month')]"))));
+			Select select2 = new Select(monthPicker1);
+			select2.selectByValue(String.valueOf(endDates[0] - 1));
+			Thread.sleep(5000);
+			driver.findElement(By.xpath("//td/a[text()='1']")).click();
+			Thread.sleep(2000);
 			logger.info("send end date for Custom option");
 			Thread.sleep(5000);
 
@@ -343,6 +358,15 @@ public class CommonSysco {
 				.elementToBeClickable(driver.findElement(By.xpath("//a[contains(text(),'" + accountID + "')]"))));
 		lnk_AccountID.click();
 		logger.info("Account location ID select - " + accountID);
+	}
+
+	private int[] getMMDDYYYY(String date) {
+		String[] mmddYYYY_start = date.split("/");
+		int[] dates = new int[3];
+		dates[0] = Integer.parseInt(mmddYYYY_start[0]);
+		dates[1] = Integer.parseInt(mmddYYYY_start[1]);
+		dates[2] = Integer.parseInt(mmddYYYY_start[2]);
+		return dates;
 	}
 
 }
