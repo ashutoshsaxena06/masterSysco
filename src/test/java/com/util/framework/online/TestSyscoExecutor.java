@@ -50,7 +50,7 @@ public class TestSyscoExecutor extends CommonSysco {
     public static String folderDate;
     public static String currList = "";
     public static String emailMessageExport = "";
-    public static String path = System.getProperty("user.home") + "\\Downloads\\chromedriver_win32 (2)\\chromedriver.exe";
+    public static String path = System.getProperty("user.home") + "\\Downloads\\chromedriver_win32\\chromedriver.exe";
     public static String project = System.getProperty("sheetName");
     public static String startDate = "04/01/2020";
     public static String endDate = "05/01/2020";
