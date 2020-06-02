@@ -5,6 +5,7 @@ import com.relevantcodes.extentreports.ExtentReports;
 import com.relevantcodes.extentreports.ExtentTest;
 import com.relevantcodes.extentreports.LogStatus;
 import com.util.framework.*;
+import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -18,6 +19,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -33,7 +35,7 @@ public class TestSyscoExecutor extends CommonSysco {
     public static SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss");
     public static String reportFile = System.getProperty("user.home") + "\\Desktop\\Reports\\SyscoOG_report\\ExportSummary_Sysco_"
             + new Date().toString().replace(":", "").replace(" ", "") + ".xlsx";
-      // for Edge -
+    // for Edge -
     // "C:\\Users\\Edge\\Desktop\\Reports\\SyscoOG_report\\ExportSummary_Sysco_" +
     // PageAction.getDate().toString().replace(" ", "_");
     // + new Date().toString().replace(":", "").replace(" ", "") + ".xlsx";
@@ -48,7 +50,7 @@ public class TestSyscoExecutor extends CommonSysco {
     public static String folderDate;
     public static String currList = "";
     public static String emailMessageExport = "";
-    public static String path = System.getProperty("user.home") + "\\Downloads\\chromedriver_win32\\chromedriver.exe";
+    public static String path = System.getProperty("user.home") + "\\Downloads\\chromedriver_win32 (2)\\chromedriver.exe";
     public static String project = System.getProperty("sheetName");
     public static String startDate = "04/01/2020";
     public static String endDate = "05/01/2020";
@@ -220,13 +222,12 @@ public class TestSyscoExecutor extends CommonSysco {
                 } else {
                     detailedstatus = "esysco.net website is down or issue with login";
                 }
-                if (loginSysco(driver, username.trim(), password.trim())) {
-
                     if (result.equals(true)) {
-                        Path filePath = RandomAction.getLatestFilefromDir(System.getProperty("user.home") + "\\Downloads\\", "csv").toPath();
-                        Path targetPath = new File(System.getProperty("user.home") + "\\Downloads\\Sysco\\" + "20200601_" + restaurant_name).toPath();
-                        Files.createDirectories(filePath.getParent());
-                        Files.copy(Paths.get(path), targetPath);
+                        String targetPath = System.getProperty("user.home") + "\\Downloads\\SyscoMonthlyReports\\" + "20200601_" + restaurant_name.trim();
+                        boolean dirCreated = new File(targetPath).mkdirs();
+                        System.out.println("dir created for restaurant " + "Big Pink" + " - " + dirCreated);
+                        File csvFile = RandomAction.getLatestFilefromDir(System.getProperty("user.home") + "\\Downloads\\", "csv");
+                        FileUtils.copyFileToDirectory(csvFile, new File(targetPath));
 
                         emailMessageExport = "Pass";
                         exportstatus = "Pass";
@@ -238,11 +239,6 @@ public class TestSyscoExecutor extends CommonSysco {
                         detailedstatus = "OG export Failed";
                         et.log(LogStatus.FAIL, detailedstatus);
                     }
-                } else { // default OG
-                    // result = startSysco(driver, username.trim(), password.trim());
-                    exportstatus = "Failed";
-                    detailedstatus = "Error : Please provide valid List name";
-                }
 
                 Thread.sleep(5000);
             } else {

@@ -281,7 +281,7 @@ public class CommonSysco {
 					.elementToBeClickable(driver.findElement(By.xpath("//input[contains(@id,'viewitemhistory')]"))));
 			viewItems.click();
 			logger.info("Export link clicked");
-			Thread.sleep(20000);
+			Thread.sleep(10000);
 
 			WebElement exportLink = wait.until(ExpectedConditions
 					.elementToBeClickable(driver.findElement(By.xpath("//input[contains(@id,'exportOrderGuideLink')]"))));
@@ -324,7 +324,7 @@ public class CommonSysco {
 			if (chk_IncludePricing.isSelected()) {
 				logger.info("pre export check status is Ok ");
 				String id = "sysco" + AccountID + " " + RandomAction.getDate();
-				RandomAction.errorScreenshot(driver, id);
+//				RandomAction.errorScreenshot(driver, id);
 			}
 
 			WebElement btn_Export = wait.until(ExpectedConditions
@@ -333,7 +333,7 @@ public class CommonSysco {
 			btn_Export.click();
 			logger.info("clicked on Export");
 
-			Thread.sleep(80000);
+			Thread.sleep(40000);
 
 			return true;
 		} finally {
