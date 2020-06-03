@@ -223,10 +223,18 @@ public class TestSyscoExecutor extends CommonSysco {
                     detailedstatus = "esysco.net website is down or issue with login";
                 }
                     if (result.equals(true)) {
-                        String targetPath = System.getProperty("user.home") + "\\Downloads\\SyscoMonthlyReports\\" + "20200601_" + restaurant_name.trim();
+                        String targetPath = System.getProperty("user.home") + "\\Downloads\\SyscoReports\\" + "20200601_" + restaurant_name.trim();
                         boolean dirCreated = new File(targetPath).mkdirs();
-                        System.out.println("dir created for restaurant " + "Big Pink" + " - " + dirCreated);
-                        File csvFile = RandomAction.getLatestFilefromDir(System.getProperty("user.home") + "\\Downloads\\", "csv");
+                        System.out.println("dir created for restaurant " + restaurant_name + " - " + dirCreated);
+                        String fileName = listname.replaceAll("/", "") + restaurant_name.trim() + ".csv";
+                        boolean fileRenamed = RandomAction.getLatestFilefromDir(System.getProperty("user.home") + "\\Downloads\\", "csv").renameTo(new File(fileName));
+                        System.out.println("renamed file for restaurant " + restaurant_name + " - " + fileRenamed);
+                        File csvFile;
+                        if (fileRenamed) {
+                            csvFile = RandomAction.getLatestFilefromDir(fileName, ".csv");
+                        } else {
+                            csvFile = RandomAction.getLatestFilefromDir(System.getProperty("user.home") + "\\Downloads\\", "csv");
+                        }
                         FileUtils.copyFileToDirectory(csvFile, new File(targetPath));
 
                         emailMessageExport = "Pass";
