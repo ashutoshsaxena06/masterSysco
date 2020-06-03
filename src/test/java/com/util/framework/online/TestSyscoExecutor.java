@@ -33,7 +33,7 @@ public class TestSyscoExecutor extends CommonSysco {
     public static String inputFile = System.getProperty("user.home") + "\\Desktop\\ExportEngineInput.xlsx";
     // projectPath + "\\config\\ExportEngineInput.xlsx";
     public static SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss");
-    public static String reportFile = System.getProperty("user.home") + "\\Desktop\\Reports\\SyscoOG_report\\ExportSummary_Sysco_"
+    public static String reportFile = System.getProperty("user.home") + "\\Desktop\\Reports\\SyscoMonthly_report\\ExportSummary_Sysco_"
             + new Date().toString().replace(":", "").replace(" ", "") + ".xlsx";
     // for Edge -
     // "C:\\Users\\Edge\\Desktop\\Reports\\SyscoOG_report\\ExportSummary_Sysco_" +
@@ -52,8 +52,8 @@ public class TestSyscoExecutor extends CommonSysco {
     public static String emailMessageExport = "";
     public static String path = System.getProperty("user.home") + "\\Downloads\\chromedriver_win32\\chromedriver.exe";
     public static String project = System.getProperty("sheetName");
-    public static String startDate = "04/01/2020";
-    public static String endDate = "05/01/2020";
+    public static String startDate = "";
+    public static String endDate = "";
     static int retry = 0;
     public static String extentReport = System.getProperty("user.dir") + File.separator + "extentsReport" + File.separator + "Report.html";
     public static ExtentReports er;
@@ -76,7 +76,7 @@ public class TestSyscoExecutor extends CommonSysco {
             er.flush();
             er.close();
 
-            String emailMsg = "Daily " + project + " OG Export Status: " + RandomAction.getDate();
+            String emailMsg = "Monthly " + project + " OG Export Status: " + RandomAction.getDate();
 
             SendMailSSL.sendReports(emailMsg, reportFile);
             logger.info("Email Sent with Attachment");
@@ -202,7 +202,7 @@ public class TestSyscoExecutor extends CommonSysco {
         // }
         exportstatus = cell1.getStringCellValue();
         detailedstatus = cell2.getStringCellValue();
-        et = er.startTest(restaurant_name);
+        et = er.startTest(restaurant_name.trim()+listname.replaceAll("/",""));
 
         try {
             if (active.equalsIgnoreCase("Yes")) {
