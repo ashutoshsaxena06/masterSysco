@@ -226,16 +226,11 @@ public class TestSyscoExecutor extends CommonSysco {
                         String targetPath = System.getProperty("user.home") + "\\Downloads\\SyscoReports\\" + "20200601_" + restaurant_name.trim();
                         boolean dirCreated = new File(targetPath).mkdirs();
                         System.out.println("dir created for restaurant " + restaurant_name + " - " + dirCreated);
-                        String fileName = listname.replaceAll("/", "") + restaurant_name.trim() + ".csv";
-                        boolean fileRenamed = RandomAction.getLatestFilefromDir(System.getProperty("user.home") + "\\Downloads\\", "csv").renameTo(new File(fileName));
+                        String fileName = listname.replaceAll("/", "") + "_" + restaurant_name.trim() + ".csv";
+//        File csvFile= RandomAction.getLatestFilefromDir(System.getProperty("user.home") + "\\Downloads\\", "csv");
+//        FileUtils.copyFileToDirectory(csvFile, new File(targetPath));
+                        boolean fileRenamed = RandomAction.getLatestFilefromDir(System.getProperty("user.home") + "\\Downloads\\", "csv").renameTo(new File(targetPath+File.separator+fileName));
                         System.out.println("renamed file for restaurant " + restaurant_name + " - " + fileRenamed);
-                        File csvFile;
-                        if (fileRenamed) {
-                            csvFile = RandomAction.getLatestFilefromDir(fileName, ".csv");
-                        } else {
-                            csvFile = RandomAction.getLatestFilefromDir(System.getProperty("user.home") + "\\Downloads\\", "csv");
-                        }
-                        FileUtils.copyFileToDirectory(csvFile, new File(targetPath));
 
                         emailMessageExport = "Pass";
                         exportstatus = "Pass";
