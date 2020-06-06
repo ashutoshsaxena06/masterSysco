@@ -99,6 +99,7 @@ public class TestSyscoExecutor extends CommonSysco {
         out = new FileOutputStream(new File(reportFile));
         exportworkbook.write(out);
         acno++;
+        er.endTest(et);
         driver.quit();
     }
 
@@ -253,7 +254,6 @@ public class TestSyscoExecutor extends CommonSysco {
             cell2.setCellValue(detailedstatus);
 
             logger.info("Exiting test method");
-
         } catch (Exception e) {
             e.printStackTrace();
             exportstatus = "Failed";

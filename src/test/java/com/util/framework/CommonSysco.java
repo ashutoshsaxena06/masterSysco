@@ -216,15 +216,20 @@ public class CommonSysco {
 
 			Thread.sleep(2000);
 
-			if (AccountID != null) {
-				if (wait.until(ExpectedConditions
-						.visibilityOf(driver.findElement(By.xpath(".//*[@id='customer-select-popup']"))))
-						.isDisplayed()) {
-					selectAccount(AccountID);
+			try{
+				if (AccountID != null) {
+					if (wait.until(ExpectedConditions
+							.visibilityOf(driver.findElement(By.xpath(".//*[@id='customer-select-popup']"))))
+							.isDisplayed()) {
+						selectAccount(AccountID);
+					}
+				} else {
+					logger.info("No Account id is provided to select - " + AccountID);
 				}
-		} else {
-			logger.info("No Account id is provided to select - " + AccountID);
-		}
+			}catch (NoSuchElementException e){
+				e.printStackTrace();
+				logger.info("No Account id is provided to select - " + AccountID);
+			}
 
 		// click List link
 		WebElement lnk_List = wait.until(ExpectedConditions
