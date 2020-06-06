@@ -277,7 +277,7 @@ public class CommonSysco {
 			Select select2 = new Select(monthPicker1);
 			select2.selectByValue(String.valueOf(endDates[0] - 1));
 			Thread.sleep(5000);
-			driver.findElement(By.xpath("//td/a[text()='1']")).click();
+			driver.findElement(By.xpath("//td/a[text()='"+endDates[1]+"']")).click();
 			Thread.sleep(2000);
 			logger.info("send end date for Custom option");
 			Thread.sleep(5000);
