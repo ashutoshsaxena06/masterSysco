@@ -191,8 +191,7 @@ public class CommonSysco {
 
 	}
 
-	public boolean startSysco(WebDriver driver, String AccountID, String listName, String userID, String pwd)
-			throws InterruptedException {
+	public String startSysco(WebDriver driver, String AccountID) throws InterruptedException {
 		// Wait For Page To Load
 		try {
 			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
@@ -216,7 +215,7 @@ public class CommonSysco {
 
 			Thread.sleep(2000);
 
-			try{
+			try {
 				if (AccountID != null) {
 					if (wait.until(ExpectedConditions
 							.visibilityOf(driver.findElement(By.xpath(".//*[@id='customer-select-popup']"))))
@@ -226,26 +225,26 @@ public class CommonSysco {
 				} else {
 					logger.info("No Account id is provided to select - " + AccountID);
 				}
-			}catch (NoSuchElementException e){
+			} catch (NoSuchElementException e) {
 				e.printStackTrace();
 				logger.info("No Account id is provided to select - " + AccountID);
 			}
 
-		// click List link
-		WebElement lnk_List = wait.until(ExpectedConditions
-				.elementToBeClickable(driver.findElement(By.xpath("//li/a[contains(@id,'itemHistoryTab')]"))));
-		lnk_List.click();
-		logger.info("Clicked On Order Guide option");
+			// click List link
+			WebElement lnk_List = wait.until(ExpectedConditions
+					.elementToBeClickable(driver.findElement(By.xpath("//li/a[contains(@id,'itemHistoryTab')]"))));
+			lnk_List.click();
+			logger.info("Clicked On Order Guide option");
 
-		Thread.sleep(2000);
+			Thread.sleep(2000);
 
-		// Select list
+			// Select list
 //			WebElement lnk_OGname = wait.until(ExpectedConditions.elementToBeClickable(driver
 //					.findElement(By.xpath("//*[@id='" + listName + "']/*/*[contains(text(),'" + listName + "')]"))));
 //			lnk_OGname.click();
-		///  Calendar
-		WebElement calendarDDL = wait.until(ExpectedConditions
-				.elementToBeClickable(driver.findElement(By.xpath("//select[contains(@id,'orderGuideDateRange')]"))));
+			///  Calendar
+			WebElement calendarDDL = wait.until(ExpectedConditions
+					.elementToBeClickable(driver.findElement(By.xpath("//select[contains(@id,'orderGuideDateRange')]"))));
 			Select select = new Select(calendarDDL);
 			select.selectByValue("0");
 			logger.info("Clicked On DDL for Custom option");
@@ -288,19 +287,22 @@ public class CommonSysco {
 			logger.info("Export link clicked");
 			Thread.sleep(10000);
 
-			WebElement exportLink = wait.until(ExpectedConditions
-					.elementToBeClickable(driver.findElement(By.xpath("//input[contains(@id,'exportOrderGuideLink')]"))));
-			exportLink.click();
-			logger.info("Export link clicked");
+			try {
+				WebElement exportLink = wait.until(ExpectedConditions
+						.elementToBeClickable(driver.findElement(By.xpath("//input[contains(@id,'exportOrderGuideLink')]"))));
+				exportLink.click();
+				logger.info("Export link clicked");
+			} catch (java.util.NoSuchElementException ne) {
+				throw new UnsupportedOperationException();
+			}
 
 
-		Thread.sleep(5000);
+			Thread.sleep(5000);
 
-
-		logger.info("Export window displayed :-" + wait
-				.until(ExpectedConditions
-						.visibilityOf(driver.findElement(By.xpath("//div[@id='dialog-for-export']"))))
-				.isDisplayed());
+			logger.info("Export window displayed :-" + wait
+					.until(ExpectedConditions
+							.visibilityOf(driver.findElement(By.xpath("//div[@id='dialog-for-export']"))))
+					.isDisplayed());
 			Thread.sleep(2000);
 
 			Select ddl_expFormat = new Select(
@@ -340,7 +342,12 @@ public class CommonSysco {
 
 			Thread.sleep(40000);
 
-			return true;
+			return "success";
+		} catch (UnsupportedOperationException un) {
+			return "No Purchase history available";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "Failed due to technical issue";
 		} finally {
 			WebElement lnk_Close = wait.until(
 					ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//div/a[@id='clsLink']"))));

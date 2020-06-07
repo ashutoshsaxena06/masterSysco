@@ -54,11 +54,10 @@ public class TestSyscoExecutor extends CommonSysco {
     public static String project = System.getProperty("sheetName");
     public static String startDate = "";
     public static String endDate = "";
-    static int retry = 0;
     public static String extentReport = System.getProperty("user.dir") + File.separator + "extentsReport" + File.separator + "Report.html";
     public static ExtentReports er;
     public static ExtentTest et;
-
+    static int retry = 0;
 
     @BeforeSuite
     public static void set() throws IOException {
@@ -66,8 +65,8 @@ public class TestSyscoExecutor extends CommonSysco {
         er.addSystemInfo("Host Name", "Edge").addSystemInfo("Environment", "Windows Server")
                 .addSystemInfo("User Name", "Ashutosh Saxena").addSystemInfo("Project", project);
         er.loadConfig(new File(System.getProperty("user.dir") + File.separator + "extents-config.xml"));
-        er.assignProject(project + " Online OG Export" );
-        logger.info("received params from User - sheetName: " + System.getProperty("sheetName") + " and email: " + System.getProperty("email") );
+        er.assignProject(project + " Online OG Export");
+        logger.info("received params from User - sheetName: " + System.getProperty("sheetName") + " and email: " + System.getProperty("email"));
     }
 
     @AfterSuite
@@ -84,6 +83,7 @@ public class TestSyscoExecutor extends CommonSysco {
             e.printStackTrace();
         }
     }
+
     @BeforeMethod
     public static void setUp() throws IOException {
         // to get the browser on which the UI test has to be performed.
@@ -177,9 +177,9 @@ public class TestSyscoExecutor extends CommonSysco {
 
     @Test(dataProvider = "testData")
     public void Export_Mail_OG(String active, String accountID, String purveyor, String restaurant_name,
-                               String username, String password, String listname, String accountNumber, String exportstatus,
+                               String username, String password, String exportDate, String accountNumber, String exportstatus,
                                String detailedstatus) {
-        Boolean result = false;
+        String result = null;
         logger.info("Inside OG Export : Started exporting OG for different accounts");
         XSSFCell cell1, cell2;
         TestSyscoExecutor.rowIndex = Math.floorMod(TestSyscoExecutor.acno, TestSyscoExecutor.totalNoOfRows) + 1;
@@ -203,47 +203,40 @@ public class TestSyscoExecutor extends CommonSysco {
         // }
         exportstatus = cell1.getStringCellValue();
         detailedstatus = cell2.getStringCellValue();
-        et = er.startTest(restaurant_name.trim()+listname.replaceAll("/",""));
+        et = er.startTest(restaurant_name.trim() + exportDate.replaceAll("/", ""));
 
         try {
             if (active.equalsIgnoreCase("Yes")) {
                 // if list is not empty
                 logger.info(restaurant_name + " for purveryor " + purveyor + " is Active !!");
-                et.log(LogStatus.INFO, restaurant_name + " and purveryor " + purveyor + " and listname is" + listname);
-                if (listname != null) {
-                    String[] dates = listname.split("-");
-                    startDate = dates[0];
-                    endDate = dates[1];
-                    if (loginSysco(driver, username.trim(), password.trim())) {
-                        result = startSysco(driver, accountNumber, listname.trim(), username.trim(),
-                                password.trim());
-                    }else {
-                        detailedstatus= "esysco.net website is down or issue with login";
-                    }
+                et.log(LogStatus.INFO, restaurant_name + " and purveryor " + purveyor + " and exportDate is" + exportDate);
+                String[] dates = exportDate.split("-");
+                startDate = dates[0];
+                endDate = dates[1];
+                if (loginSysco(driver, username.trim(), password.trim())) {
+                    result = startSysco(driver, accountNumber);
                 } else {
                     detailedstatus = "esysco.net website is down or issue with login";
                 }
-                    if (result.equals(true)) {
-                        String targetPath = System.getProperty("user.home") + "\\Downloads\\SyscoReports\\" + "20200601_" + restaurant_name.trim();
-                        boolean dirCreated = new File(targetPath).mkdirs();
-                        System.out.println("dir created for restaurant " + restaurant_name + " - " + dirCreated);
-                        String fileName = listname.replaceAll("/", "") + "_" + restaurant_name.trim() + ".csv";
+                if (result.equals("success")) {
+                    String targetPath = System.getProperty("user.home") + "\\Downloads\\SyscoReports\\" + "20200601_" + restaurant_name.trim();
+                    boolean dirCreated = new File(targetPath).mkdirs();
+                    System.out.println("dir created for restaurant " + restaurant_name + " - " + dirCreated);
+                    String fileName = exportDate.replaceAll("/", "") + "_" + restaurant_name.trim() + ".csv";
 //        File csvFile= RandomAction.getLatestFilefromDir(System.getProperty("user.home") + "\\Downloads\\", "csv");
 //        FileUtils.copyFileToDirectory(csvFile, new File(targetPath));
-                        boolean fileRenamed = RandomAction.getLatestFilefromDir(System.getProperty("user.home") + "\\Downloads\\", "csv").renameTo(new File(targetPath+File.separator+fileName));
-                        System.out.println("renamed file for restaurant " + restaurant_name + " - " + fileRenamed);
+                    boolean fileRenamed = RandomAction.getLatestFilefromDir(System.getProperty("user.home") + "\\Downloads\\", "csv").renameTo(new File(targetPath + File.separator + fileName));
+                    System.out.println("renamed file for restaurant " + restaurant_name + " - " + fileRenamed);
 
-                        emailMessageExport = "Pass";
-                        exportstatus = "Pass";
-                        detailedstatus = "OG exported succesfully";
-                        et.log(LogStatus.PASS, detailedstatus);
-                    } else {
-                        emailMessageExport = "Failed";
-                        exportstatus = "Failed";
-                        detailedstatus = "OG export Failed";
-                        et.log(LogStatus.FAIL, detailedstatus);
-                    }
-
+                    emailMessageExport = "Pass";
+                    exportstatus = "Pass";
+                    et.log(LogStatus.PASS, detailedstatus);
+                } else {
+                    emailMessageExport = "Failed";
+                    exportstatus = "Failed";
+                    et.log(LogStatus.FAIL, detailedstatus);
+                }
+                detailedstatus = result;
                 Thread.sleep(5000);
             } else {
                 logger.info(restaurant_name + " for purveryor " + purveyor + " is not Active !!");
@@ -257,11 +250,11 @@ public class TestSyscoExecutor extends CommonSysco {
         } catch (Exception e) {
             e.printStackTrace();
             exportstatus = "Failed";
-            detailedstatus = detailedstatus != null  ?  detailedstatus : "Some technical issue ocurred during export";
+            detailedstatus = detailedstatus != null ? detailedstatus : "Some technical issue ocurred during export";
             cell1.setCellValue(exportstatus);
             cell2.setCellValue(detailedstatus);
             logger.info(detailedstatus + " for restaurant - " + restaurant_name);
-            et.log(LogStatus.FAIL, exportstatus + " - "+ detailedstatus);
+            et.log(LogStatus.FAIL, exportstatus + " - " + detailedstatus);
             Assert.assertTrue(false);
         }
         logger.info(emailMessageExport.trim());
