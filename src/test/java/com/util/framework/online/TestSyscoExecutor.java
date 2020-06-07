@@ -4,25 +4,23 @@ package com.util.framework.online;
 import com.relevantcodes.extentreports.ExtentReports;
 import com.relevantcodes.extentreports.ExtentTest;
 import com.relevantcodes.extentreports.LogStatus;
-import com.util.framework.*;
-import org.apache.commons.io.FileUtils;
+import com.util.framework.CommonSysco;
+import com.util.framework.ExcelFunctions;
+import com.util.framework.RandomAction;
+import com.util.framework.SendMailSSL;
 import org.apache.log4j.Logger;
-import org.apache.poi.xssf.usermodel.XSSFCell;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.apache.poi.xssf.streaming.SXSSFCell;
+import org.apache.poi.xssf.streaming.SXSSFSheet;
+import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.testng.Assert;
 import org.testng.annotations.*;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public class TestSyscoExecutor extends CommonSysco {
 
@@ -34,7 +32,7 @@ public class TestSyscoExecutor extends CommonSysco {
     // projectPath + "\\config\\ExportEngineInput.xlsx";
     public static SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss");
     public static String reportFile = System.getProperty("user.home") + "\\Desktop\\Reports\\SyscoMonthly_report\\ExportSummary_Sysco_"
-            + new Date().toString().replace(":", "").replace(" ", "") + ".xlsx";
+            + LocalDateTime.now() + ".xlsx";
     // for Edge -
     // "C:\\Users\\Edge\\Desktop\\Reports\\SyscoOG_report\\ExportSummary_Sysco_" +
     // PageAction.getDate().toString().replace(" ", "_");
@@ -42,8 +40,8 @@ public class TestSyscoExecutor extends CommonSysco {
     // projectPath+ "\\Output_Summary\\ExportSummary_Sysco_" + new
     // Date().toString().replace(":", "").replace(" ", "")+".xlsx";
     public static int acno;
-    public static XSSFWorkbook exportworkbook;
-    public static XSSFSheet inputsheet;
+    public static SXSSFWorkbook exportworkbook;
+    public static SXSSFSheet inputsheet;
     public static int AcColStatus, AcColdetail;
     public static FileOutputStream out;
     public static int totalNoOfRows;
@@ -146,7 +144,7 @@ public class TestSyscoExecutor extends CommonSysco {
         // -- fail ->
         exportworkbook = ExcelFunctions.openFile(inputFile);
         logger.info("Test data read.");
-        inputsheet = exportworkbook.getSheet(project);
+        inputsheet = (SXSSFSheet) exportworkbook.getSheet(project);
         AcColStatus = ExcelFunctions.getColumnNumber("Export Status", inputsheet);
         AcColdetail = ExcelFunctions.getColumnNumber("Detailed Export Status", inputsheet);
 
@@ -180,14 +178,14 @@ public class TestSyscoExecutor extends CommonSysco {
                                String detailedstatus) {
         String result = null;
         logger.info("Inside OG Export : Started exporting OG for different accounts");
-        XSSFCell cell1, cell2;
+        SXSSFCell cell1, cell2;
         TestSyscoExecutor.rowIndex = Math.floorMod(TestSyscoExecutor.acno, TestSyscoExecutor.totalNoOfRows) + 1;
 
         System.out.println("Test Case test #" + TestSyscoExecutor.rowIndex);
-        cell1 = TestSyscoExecutor.exportworkbook.getSheet(project).getRow(TestSyscoExecutor.rowIndex)
+        cell1 = (SXSSFCell) TestSyscoExecutor.exportworkbook.getSheet(project).getRow(TestSyscoExecutor.rowIndex)
                 .createCell(TestSyscoExecutor.AcColStatus);
         cell1.setCellValue("");
-        cell2 = TestSyscoExecutor.exportworkbook.getSheet(project).getRow(TestSyscoExecutor.rowIndex)
+        cell2 = (SXSSFCell) TestSyscoExecutor.exportworkbook.getSheet(project).getRow(TestSyscoExecutor.rowIndex)
                 .createCell(TestSyscoExecutor.AcColdetail);
         cell2.setCellValue("");
         // if((cell1=TestSyscoExecutor.exportworkbook.getSheet(project).getRow(TestSyscoExecutor.rowIndex).getCell(TestSyscoExecutor.AcColStatus))==null){

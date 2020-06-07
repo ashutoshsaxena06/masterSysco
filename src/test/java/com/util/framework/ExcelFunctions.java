@@ -3,6 +3,8 @@ package com.util.framework;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.DateUtil;
 import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.streaming.SXSSFSheet;
+import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -14,17 +16,17 @@ import java.util.Iterator;
 
 public class ExcelFunctions {
 
-	protected static XSSFWorkbook workbook;
+	protected static SXSSFWorkbook workbook;
 
 	/**
 	 * 1 Class: ExcelFunctions Method: openFile To open excel file
 	 */
-	public static XSSFWorkbook openFile(String filepath) throws IOException {
+	public static SXSSFWorkbook openFile(String filepath) throws IOException {
 		try {
 			File file = new File(filepath);
 			FileInputStream fIP = new FileInputStream(file);
 			// Get the workbook instance for XLSX file
-			workbook = new XSSFWorkbook(fIP);
+			workbook = new SXSSFWorkbook(new XSSFWorkbook(fIP));
 			if (file.isFile() && file.exists()) {
 				System.out.println(filepath + " file open successfully.");
 			} else {
@@ -56,7 +58,7 @@ public class ExcelFunctions {
 	 * 3 Class: ExcelFunctions Method: getColumnNumber Helper Function: To get
 	 * the Column number against the column name
 	 */
-	public static int getColumnNumber(String colValue, XSSFSheet xssfSheet) {
+	public static int getColumnNumber(String colValue, SXSSFSheet xssfSheet) {
 		boolean bFlag = false;
 		Cell cell = null;
 		String colval = null;
@@ -178,27 +180,27 @@ public class ExcelFunctions {
 	 * 5 Class: ExcelFunctions Method: getCellValue Helper Function: Get Value
 	 * of the cell
 	 */
-	public static Object getCellValue(XSSFSheet sheet, int row, int col) {
+	public static Object getCellValue(SXSSFSheet sheet, int row, int col) {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy");
 		Cell cell = sheet.getRow(row).getCell(col);
 		Object cellValue = null;
 		if (cell != null) {
 			switch (cell.getCellType()) {
-			case Cell.CELL_TYPE_STRING:
-				cellValue = cell.getStringCellValue();
-				// System.out.println(colval);
-				break;
-			case Cell.CELL_TYPE_NUMERIC:
-				if (DateUtil.isCellDateFormatted(cell)) {
-					Date dDate = cell.getDateCellValue();
-					cellValue = sdf.format(dDate);// .toString();
-				} else {
-					double nDate = cell.getNumericCellValue();
-					cellValue = "" + nDate;
-				}
-				break;
-			case Cell.CELL_TYPE_FORMULA:
-				cellValue = cell.getCellFormula();
+				case Cell.CELL_TYPE_STRING:
+					cellValue = cell.getStringCellValue();
+					// System.out.println(colval);
+					break;
+				case Cell.CELL_TYPE_NUMERIC:
+					if (DateUtil.isCellDateFormatted(cell)) {
+						Date dDate = cell.getDateCellValue();
+						cellValue = sdf.format(dDate);// .toString();
+					} else {
+						double nDate = cell.getNumericCellValue();
+						cellValue = "" + nDate;
+					}
+					break;
+				case Cell.CELL_TYPE_FORMULA:
+					cellValue = cell.getCellFormula();
 				break;
 			}
 		}
