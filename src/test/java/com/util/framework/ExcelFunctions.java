@@ -184,22 +184,22 @@ public class ExcelFunctions {
 		Object cellValue = null;
 		if (cell != null) {
 			switch (cell.getCellType()) {
-			case Cell.CELL_TYPE_STRING:
-				cellValue = cell.getStringCellValue();
-				// System.out.println(colval);
-				break;
-			case Cell.CELL_TYPE_NUMERIC:
-				if (DateUtil.isCellDateFormatted(cell)) {
-					Date dDate = cell.getDateCellValue();
-					cellValue = sdf.format(dDate);// .toString();
-				} else {
-					double nDate = cell.getNumericCellValue();
-					cellValue = "" + nDate;
-				}
-				break;
-			case Cell.CELL_TYPE_FORMULA:
-				cellValue = cell.getCellFormula();
-				break;
+				case Cell.CELL_TYPE_STRING:
+					cellValue = cell.getStringCellValue();
+					// System.out.println(colval);
+					break;
+				case Cell.CELL_TYPE_NUMERIC:
+					if (DateUtil.isCellDateFormatted(cell)) {
+						Date dDate = cell.getDateCellValue();
+						cellValue = sdf.format(dDate);// .toString();
+					} else {
+						double nDate = cell.getNumericCellValue();
+						cellValue = "" + nDate;
+					}
+					break;
+				case Cell.CELL_TYPE_FORMULA:
+					cellValue = cell.getCellFormula();
+					break;
 			}
 		}
 		return cellValue;

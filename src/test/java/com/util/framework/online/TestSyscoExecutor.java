@@ -4,8 +4,10 @@ package com.util.framework.online;
 import com.relevantcodes.extentreports.ExtentReports;
 import com.relevantcodes.extentreports.ExtentTest;
 import com.relevantcodes.extentreports.LogStatus;
-import com.util.framework.*;
-import org.apache.commons.io.FileUtils;
+import com.util.framework.CommonSysco;
+import com.util.framework.ExcelFunctions;
+import com.util.framework.RandomAction;
+import com.util.framework.SendMailSSL;
 import org.apache.log4j.Logger;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -16,13 +18,9 @@ import org.testng.annotations.*;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public class TestSyscoExecutor extends CommonSysco {
 
@@ -34,7 +32,7 @@ public class TestSyscoExecutor extends CommonSysco {
     // projectPath + "\\config\\ExportEngineInput.xlsx";
     public static SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss");
     public static String reportFile = System.getProperty("user.home") + "\\Desktop\\Reports\\SyscoMonthly_report\\ExportSummary_Sysco_"
-            + new Date().toString().replace(":", "").replace(" ", "") + ".xlsx";
+            + LocalDateTime.now() + ".xlsx";
     // for Edge -
     // "C:\\Users\\Edge\\Desktop\\Reports\\SyscoOG_report\\ExportSummary_Sysco_" +
     // PageAction.getDate().toString().replace(" ", "_");
