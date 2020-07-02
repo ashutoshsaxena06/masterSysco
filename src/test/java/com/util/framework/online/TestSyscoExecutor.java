@@ -28,7 +28,7 @@ public class TestSyscoExecutor extends CommonSysco {
     private final static Logger logger = Logger.getLogger(TestSyscoExecutor.class);
     public static int rowIndex;
     public static String pr̥ojectPath = System.getProperty("user.dir");
-    public static String inputFile = System.getProperty("user.home") + "\\Desktop\\MonthlyReports.xlsx";
+    public static String inputFile = System.getProperty("user.home") + "\\Desktop\\ExportEngineInput.xlsx";
     // projectPath + "\\config\\ExportEngineInput.xlsx";
     public static SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss");
     public static String reportFile = System.getProperty("user.home") + "\\Desktop\\Reports\\SyscoMonthly_report\\ExportSummary_Sysco_"
@@ -94,8 +94,8 @@ public class TestSyscoExecutor extends CommonSysco {
     @AfterMethod
     public static void writeExcel() throws IOException {
         logger.info("Running Excel write method!");
-        out = new FileOutputStream(new File(reportFile));
-        exportworkbook.write(out);
+//        out = new FileOutputStream(new File(reportFile));
+        new ExcelFunctions().writeandcloseFile(reportFile);
         acno++;
         driver.quit();
     }
@@ -215,7 +215,7 @@ public class TestSyscoExecutor extends CommonSysco {
                 } else {
                     detailedstatus = "esysco.net website is down or issue with login";
                 }
-                if (result.equals("success")) {
+                if (result.equals("success") || result.equals("No Purchase history available")) {
                     String targetPath = System.getProperty("user.home") + "\\Downloads\\SyscoReports\\" + "20200601_" + restaurant_name.trim();
                     boolean dirCreated = new File(targetPath).mkdirs();
                     System.out.println("dir created for restaurant " + restaurant_name + " - " + dirCreated);
@@ -247,12 +247,12 @@ public class TestSyscoExecutor extends CommonSysco {
         } catch (Exception e) {
             e.printStackTrace();
             exportstatus = "Failed";
-            detailedstatus = detailedstatus != null ? detailedstatus : "Some technical issue ocurred during export";
+            detailedstatus = detailedstatus != null ? detailedstatus : "Some technical issue occured during export";
             cell1.setCellValue(exportstatus);
             cell2.setCellValue(detailedstatus);
             logger.info(detailedstatus + " for restaurant - " + restaurant_name);
             et.log(LogStatus.FAIL, exportstatus + " - " + detailedstatus);
-            Assert.assertTrue(false);
+            Assert.fail();
         }
         er.endTest(et);
         logger.info(emailMessageExport.trim());

@@ -4,7 +4,6 @@ import com.util.framework.online.TestSyscoExecutor;
 import org.apache.log4j.Logger;
 import org.junit.Assert;
 import org.openqa.selenium.*;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -139,24 +138,26 @@ public class CommonSysco {
 	*/
 
 	public static boolean loginSysco(WebDriver driver, String userName, String password) {
-		try {driver.get("https://www.esysco.net/EOP/Login");
+		try {
+			Thread.sleep(2000);
+			driver.get("https://www.esysco.net/EOP/Login");
 			wait = new WebDriverWait(driver, 30);
 			// Enter username
-		WebElement inp_user = wait.until(
-				ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//input[contains(@id,'USERID')]"))));
-		inp_user.sendKeys(userName);
+			WebElement inp_user = wait.until(
+					ExpectedConditions.presenceOfElementLocated(By.xpath("//input[contains(@id,'USERID')]")));
+			inp_user.sendKeys(userName);
 
-		// Enter Password
-		WebElement inp_pwd = wait.until(ExpectedConditions
-				.visibilityOf(driver.findElement(By.xpath("//input[contains(@id,'currentPassword')]"))));
-		inp_pwd.sendKeys(password);
+			// Enter Password
+			WebElement inp_pwd = wait.until(ExpectedConditions
+					.visibilityOf(driver.findElement(By.xpath("//input[contains(@id,'currentPassword')]"))));
+			inp_pwd.sendKeys(password);
 
-		// Click Login
-		WebElement img_Login = wait
-				.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//img[@id='img_login']"))));
-		img_Login.click();
-		logger.info("Login Success");
-		return  true;
+			// Click Login
+			WebElement img_Login = wait
+					.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//img[@id='img_login']"))));
+			img_Login.click();
+			logger.info("Login Success");
+			return true;
 		}
 		catch(Exception e){
 			e.printStackTrace();
@@ -230,6 +231,7 @@ public class CommonSysco {
 				logger.info("No Account id is provided to select - " + AccountID);
 			}
 
+			clickOK();
 			// click List link
 			WebElement lnk_List = wait.until(ExpectedConditions
 					.elementToBeClickable(driver.findElement(By.xpath("//li/a[contains(@id,'itemHistoryTab')]"))));
@@ -289,10 +291,11 @@ public class CommonSysco {
 
 			try {
 				WebElement exportLink = wait.until(ExpectedConditions
-						.elementToBeClickable(driver.findElement(By.xpath("//input[contains(@id,'exportOrderGuideLink')]"))));
+						.presenceOfElementLocated(By.xpath("//input[contains(@id,'exportOrderGuideLink')]")));
 				exportLink.click();
 				logger.info("Export link clicked");
-			} catch (java.util.NoSuchElementException ne) {
+			} catch (WebDriverException ne) {
+				logger.error("no purchase history - " + ne.getLocalizedMessage());
 				throw new UnsupportedOperationException();
 			}
 
@@ -361,6 +364,14 @@ public class CommonSysco {
 			inp_Close.click();
 			logger.info("Application closed");
 
+		}
+	}
+
+	private void clickOK() {
+		try {
+			wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@id='genericErrorDivButton']"))).click();
+		} catch (Exception var1) {
+			var1.printStackTrace();
 		}
 	}
 
