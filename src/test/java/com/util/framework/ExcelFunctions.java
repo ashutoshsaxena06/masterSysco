@@ -3,8 +3,6 @@ package com.util.framework;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.DateUtil;
 import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.xssf.streaming.SXSSFSheet;
-import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -16,17 +14,17 @@ import java.util.Iterator;
 
 public class ExcelFunctions {
 
-	protected static SXSSFWorkbook workbook;
+	protected static XSSFWorkbook workbook;
 
 	/**
 	 * 1 Class: ExcelFunctions Method: openFile To open excel file
 	 */
-	public static SXSSFWorkbook openFile(String filepath) throws IOException {
+	public static XSSFWorkbook openFile(String filepath) throws IOException {
 		try {
 			File file = new File(filepath);
 			FileInputStream fIP = new FileInputStream(file);
 			// Get the workbook instance for XLSX file
-			workbook = new SXSSFWorkbook(new XSSFWorkbook(fIP));
+			workbook = new XSSFWorkbook(fIP);
 			if (file.isFile() && file.exists()) {
 				System.out.println(filepath + " file open successfully.");
 			} else {
@@ -58,7 +56,7 @@ public class ExcelFunctions {
 	 * 3 Class: ExcelFunctions Method: getColumnNumber Helper Function: To get
 	 * the Column number against the column name
 	 */
-	public static int getColumnNumber(String colValue, SXSSFSheet xssfSheet) {
+	public static int getColumnNumber(String colValue, XSSFSheet xssfSheet) {
 		boolean bFlag = false;
 		Cell cell = null;
 		String colval = null;
@@ -180,7 +178,7 @@ public class ExcelFunctions {
 	 * 5 Class: ExcelFunctions Method: getCellValue Helper Function: Get Value
 	 * of the cell
 	 */
-	public static Object getCellValue(SXSSFSheet sheet, int row, int col) {
+	public static Object getCellValue(XSSFSheet sheet, int row, int col) {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy");
 		Cell cell = sheet.getRow(row).getCell(col);
 		Object cellValue = null;

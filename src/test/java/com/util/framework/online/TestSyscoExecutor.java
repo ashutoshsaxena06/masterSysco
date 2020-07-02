@@ -9,9 +9,9 @@ import com.util.framework.ExcelFunctions;
 import com.util.framework.RandomAction;
 import com.util.framework.SendMailSSL;
 import org.apache.log4j.Logger;
-import org.apache.poi.xssf.streaming.SXSSFCell;
-import org.apache.poi.xssf.streaming.SXSSFSheet;
-import org.apache.poi.xssf.streaming.SXSSFWorkbook;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.testng.Assert;
 import org.testng.annotations.*;
 
@@ -40,8 +40,8 @@ public class TestSyscoExecutor extends CommonSysco {
     // projectPath+ "\\Output_Summary\\ExportSummary_Sysco_" + new
     // Date().toString().replace(":", "").replace(" ", "")+".xlsx";
     public static int acno;
-    public static SXSSFWorkbook exportworkbook;
-    public static SXSSFSheet inputsheet;
+    public static XSSFWorkbook exportworkbook;
+    public static XSSFSheet inputsheet;
     public static int AcColStatus, AcColdetail;
     public static FileOutputStream out;
     public static int totalNoOfRows;
@@ -144,7 +144,7 @@ public class TestSyscoExecutor extends CommonSysco {
         // -- fail ->
         exportworkbook = ExcelFunctions.openFile(inputFile);
         logger.info("Test data read.");
-        inputsheet = (SXSSFSheet) exportworkbook.getSheet(project);
+        inputsheet = exportworkbook.getSheet(project);
         AcColStatus = ExcelFunctions.getColumnNumber("Export Status", inputsheet);
         AcColdetail = ExcelFunctions.getColumnNumber("Detailed Export Status", inputsheet);
 
@@ -178,14 +178,14 @@ public class TestSyscoExecutor extends CommonSysco {
                                String detailedstatus) {
         String result = null;
         logger.info("Inside OG Export : Started exporting OG for different accounts");
-        SXSSFCell cell1, cell2;
+        XSSFCell cell1, cell2;
         TestSyscoExecutor.rowIndex = Math.floorMod(TestSyscoExecutor.acno, TestSyscoExecutor.totalNoOfRows) + 1;
 
         System.out.println("Test Case test #" + TestSyscoExecutor.rowIndex);
-        cell1 = (SXSSFCell) TestSyscoExecutor.exportworkbook.getSheet(project).getRow(TestSyscoExecutor.rowIndex)
+        cell1 = TestSyscoExecutor.exportworkbook.getSheet(project).getRow(TestSyscoExecutor.rowIndex)
                 .createCell(TestSyscoExecutor.AcColStatus);
         cell1.setCellValue("");
-        cell2 = (SXSSFCell) TestSyscoExecutor.exportworkbook.getSheet(project).getRow(TestSyscoExecutor.rowIndex)
+        cell2 = TestSyscoExecutor.exportworkbook.getSheet(project).getRow(TestSyscoExecutor.rowIndex)
                 .createCell(TestSyscoExecutor.AcColdetail);
         cell2.setCellValue("");
         // if((cell1=TestSyscoExecutor.exportworkbook.getSheet(project).getRow(TestSyscoExecutor.rowIndex).getCell(TestSyscoExecutor.AcColStatus))==null){
