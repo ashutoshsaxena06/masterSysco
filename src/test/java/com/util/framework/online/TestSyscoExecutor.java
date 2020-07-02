@@ -1,6 +1,7 @@
 package com.util.framework.online;
 
 
+import com.gargoylesoftware.htmlunit.javascript.host.intl.DateTimeFormat;
 import com.relevantcodes.extentreports.ExtentReports;
 import com.relevantcodes.extentreports.ExtentTest;
 import com.relevantcodes.extentreports.LogStatus;
@@ -21,6 +22,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class TestSyscoExecutor extends CommonSysco {
 
@@ -32,7 +34,7 @@ public class TestSyscoExecutor extends CommonSysco {
     // projectPath + "\\config\\ExportEngineInput.xlsx";
     public static SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss");
     public static String reportFile = System.getProperty("user.home") + "\\Desktop\\Reports\\SyscoMonthly_report\\ExportSummary_Sysco_"
-            + LocalDateTime.now() + ".xlsx";
+            + LocalDateTime.now().format(DateTimeFormatter.BASIC_ISO_DATE) + ".xlsx";
     // for Edge -
     // "C:\\Users\\Edge\\Desktop\\Reports\\SyscoOG_report\\ExportSummary_Sysco_" +
     // PageAction.getDate().toString().replace(" ", "_");
