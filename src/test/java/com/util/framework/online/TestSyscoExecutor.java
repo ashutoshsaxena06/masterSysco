@@ -94,7 +94,7 @@ public class TestSyscoExecutor extends CommonSysco {
     @AfterMethod
     public static void writeExcel() throws IOException {
         logger.info("Running Excel write method!");
-//        out = new FileOutputStream(new File(reportFile));
+        out = new FileOutputStream(new File(reportFile));
         new ExcelFunctions().writeandcloseFile(reportFile);
         acno++;
         driver.quit();
