@@ -1,5 +1,6 @@
 package com.util.framework;
 
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.DateUtil;
 import org.apache.poi.ss.usermodel.Row;
@@ -37,22 +38,6 @@ public class ExcelFunctions {
 	}
 
 	/**
-	 * 2 Class: ExcelFunctions Method: writeandcloseFile To write and close
-	 * excel file
-	 */
-	public void writeandcloseFile(String filepath) {
-		try {
-			FileOutputStream outFile = new FileOutputStream(new File(filepath));
-			workbook.write(outFile);
-			outFile.close();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
-	/**
 	 * 3 Class: ExcelFunctions Method: getColumnNumber Helper Function: To get
 	 * the Column number against the column name
 	 */
@@ -80,21 +65,21 @@ public class ExcelFunctions {
 				cell = cellIterator.next();
 				if (cell != null) {
 					switch (cell.getCellType()) {
-					case Cell.CELL_TYPE_STRING:
-						colval = cell.getStringCellValue();
-						break;
-					case Cell.CELL_TYPE_NUMERIC:
-						if (DateUtil.isCellDateFormatted(cell)) {
-							Date dDate = cell.getDateCellValue();
-							colval = dDate.toString();
-						} else {
-							double nDate = cell.getNumericCellValue();
-							colval = "" + nDate;
-						}
-						break;
-					case Cell.CELL_TYPE_FORMULA:
-						colval = cell.getCellFormula();
-						break;
+						case Cell.CELL_TYPE_STRING:
+							colval = cell.getStringCellValue();
+							break;
+						case Cell.CELL_TYPE_NUMERIC:
+							if (DateUtil.isCellDateFormatted(cell)) {
+								Date dDate = cell.getDateCellValue();
+								colval = dDate.toString();
+							} else {
+								double nDate = cell.getNumericCellValue();
+								colval = "" + nDate;
+							}
+							break;
+						case Cell.CELL_TYPE_FORMULA:
+							colval = cell.getCellFormula();
+							break;
 					}
 					if (colval != null && colval.trim().toUpperCase().equals(colValue.trim().toUpperCase())) {
 						bFlag = true;
@@ -142,22 +127,22 @@ public class ExcelFunctions {
 				cell = cellIterator.next();
 				if (cell != null) {
 					switch (cell.getCellType()) {
-					case Cell.CELL_TYPE_STRING:
-						colval = cell.getStringCellValue();
-						// System.out.println(colval);
-						break;
-					case Cell.CELL_TYPE_NUMERIC:
-						if (DateUtil.isCellDateFormatted(cell)) {
-							Date dDate = cell.getDateCellValue();
-							colval = dDate.toString();
-						} else {
-							double nDate = cell.getNumericCellValue();
-							colval = "" + nDate;
-						}
-						break;
-					case Cell.CELL_TYPE_FORMULA:
-						colval = cell.getCellFormula();
-						break;
+						case Cell.CELL_TYPE_STRING:
+							colval = cell.getStringCellValue();
+							// System.out.println(colval);
+							break;
+						case Cell.CELL_TYPE_NUMERIC:
+							if (DateUtil.isCellDateFormatted(cell)) {
+								Date dDate = cell.getDateCellValue();
+								colval = dDate.toString();
+							} else {
+								double nDate = cell.getNumericCellValue();
+								colval = "" + nDate;
+							}
+							break;
+						case Cell.CELL_TYPE_FORMULA:
+							colval = cell.getCellFormula();
+							break;
 					}
 					if (colval != null && colval.trim().toUpperCase().equals(Value.trim().toUpperCase())) {
 						bFlag = true;
@@ -199,7 +184,7 @@ public class ExcelFunctions {
 					break;
 				case Cell.CELL_TYPE_FORMULA:
 					cellValue = cell.getCellFormula();
-				break;
+					break;
 			}
 		}
 		return cellValue;
@@ -225,26 +210,26 @@ public class ExcelFunctions {
 					Cell newCell = newRow.createCell(j);
 					if (!oldCell.equals(null)) {
 						switch (oldCell.getCellType()) {
-						case XSSFCell.CELL_TYPE_STRING:
-							newCell.setCellValue(oldCell.getStringCellValue());
-							break;
-						case XSSFCell.CELL_TYPE_NUMERIC:
-							newCell.setCellValue(oldCell.getNumericCellValue());
-							break;
-						case XSSFCell.CELL_TYPE_BOOLEAN:
-							newCell.setCellValue(oldCell.getBooleanCellValue());
-							break;
-						case XSSFCell.CELL_TYPE_ERROR:
-							newCell.setCellErrorValue(oldCell.getErrorCellValue());
-							break;
-						case XSSFCell.CELL_TYPE_FORMULA:
-							newCell.setCellType(XSSFCell.CELL_TYPE_FORMULA); // Add
-																				// this
-																				// line
-							newCell.setCellFormula(oldCell.getCellFormula());
-							break;
-						default:
-							break;
+							case XSSFCell.CELL_TYPE_STRING:
+								newCell.setCellValue(oldCell.getStringCellValue());
+								break;
+							case XSSFCell.CELL_TYPE_NUMERIC:
+								newCell.setCellValue(oldCell.getNumericCellValue());
+								break;
+							case XSSFCell.CELL_TYPE_BOOLEAN:
+								newCell.setCellValue(oldCell.getBooleanCellValue());
+								break;
+							case XSSFCell.CELL_TYPE_ERROR:
+								newCell.setCellErrorValue(oldCell.getErrorCellValue());
+								break;
+							case XSSFCell.CELL_TYPE_FORMULA:
+								newCell.setCellType(XSSFCell.CELL_TYPE_FORMULA); // Add
+								// this
+								// line
+								newCell.setCellFormula(oldCell.getCellFormula());
+								break;
+							default:
+								break;
 						}
 					}
 				} catch (NullPointerException e) {
@@ -254,6 +239,31 @@ public class ExcelFunctions {
 		}
 
 		return resultingExcel;
+	}
+
+	/**
+	 * 2 Class: ExcelFunctions Method: writeandcloseFile To write and close
+	 * excel file
+	 */
+	public void writeandcloseFile(String filepath) {
+		try {
+			org.apache.poi.openxml4j.opc.OPCPackage opc =
+					org.apache.poi.openxml4j.opc.OPCPackage.open(filepath);
+			org.apache.poi.xssf.usermodel.XSSFWorkbook wb =
+					new org.apache.poi.xssf.usermodel.XSSFWorkbook(opc);
+			java.io.FileOutputStream fileOut = new java.io.FileOutputStream(filepath);
+			wb.write(fileOut);
+			opc.close();
+			fileOut.close();
+
+			FileOutputStream outFile = new FileOutputStream(new File(filepath));
+			workbook.write(outFile);
+			outFile.close();
+		} catch (FileNotFoundException | InvalidFormatException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 

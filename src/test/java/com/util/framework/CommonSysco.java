@@ -260,11 +260,13 @@ public class CommonSysco {
 			startDateElement.click();
 			Thread.sleep(2000);
 
-			int[] startDates = getMMDDYYYY(TestSyscoExecutor.startDate);
+//			int[] startDates = getMMDDYYYY(TestSyscoExecutor.startDate);
+
 			WebElement monthPicker = wait.until(ExpectedConditions
 					.elementToBeClickable(driver.findElement(By.xpath("//select[contains(@class,'ui-datepicker-month')]"))));
 			Select select1 = new Select(monthPicker);
-			select1.selectByValue(String.valueOf(startDates[0] - 1));
+//			select1.selectByValue(String.valueOf(startDates[0] - 1));
+			select1.selectByValue(String.valueOf(TestSyscoExecutor.date.getMonth().ordinal()));
 			Thread.sleep(5000);
 			driver.findElement(By.xpath("//td/a[text()='1']")).click();
 			Thread.sleep(2000);
@@ -272,13 +274,13 @@ public class CommonSysco {
 			WebElement endDateElement = wait.until(ExpectedConditions
 					.elementToBeClickable(driver.findElement(By.xpath("//input[contains(@id,'historyenddate')]"))));
 			endDateElement.click();
-			int[] endDates = getMMDDYYYY(TestSyscoExecutor.endDate);
+//			int[] endDates = getMMDDYYYY(TestSyscoExecutor.endDate);
 			WebElement monthPicker1 = wait.until(ExpectedConditions
 					.elementToBeClickable(driver.findElement(By.xpath("//select[contains(@class,'ui-datepicker-month')]"))));
 			Select select2 = new Select(monthPicker1);
-			select2.selectByValue(String.valueOf(endDates[0] - 1));
+			select2.selectByValue(String.valueOf(TestSyscoExecutor.date.getMonth().ordinal()));
 			Thread.sleep(5000);
-			driver.findElement(By.xpath("//td/a[text()='"+endDates[1]+"']")).click();
+			driver.findElement(By.xpath("//td/a[text()='"+TestSyscoExecutor.date.lengthOfMonth()+"']")).click();
 			Thread.sleep(2000);
 			logger.info("send end date for Custom option");
 			Thread.sleep(5000);
