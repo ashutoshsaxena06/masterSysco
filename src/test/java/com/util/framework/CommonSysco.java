@@ -144,17 +144,17 @@ public class CommonSysco {
 			wait = new WebDriverWait(driver, 30);
 			// Enter username
 		WebElement inp_user = wait.until(
-				ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//input[contains(@id,'USERID')]"))));
+				ExpectedConditions.presenceOfElementLocated(By.xpath("//input[contains(@id,'USERID')]")));
 		inp_user.sendKeys(userName);
 
 		// Enter Password
 		WebElement inp_pwd = wait.until(ExpectedConditions
-				.visibilityOf(driver.findElement(By.xpath("//input[contains(@id,'currentPassword')]"))));
+				.presenceOfElementLocated(By.xpath("//input[contains(@id,'currentPassword')]")));
 		inp_pwd.sendKeys(password);
 
 		// Click Login
 		WebElement img_Login = wait
-				.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//img[@id='img_login']"))));
+				.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//img[@id='img_login']")));
 		img_Login.click();
 		logger.info("Login Success");
 		return  true;
