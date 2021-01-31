@@ -67,9 +67,7 @@ public class TestSyscoExecutor extends CommonSysco {
         try {
             er.flush();
             er.close();
-
             String emailMsg = "Daily " + project + " OG Export Status: " + RandomAction.getDate();
-
             SendMailSSL.sendReports(emailMsg, reportFile);
             logger.info("Email Sent with Attachment");
         } catch (Exception e) {
@@ -80,7 +78,7 @@ public class TestSyscoExecutor extends CommonSysco {
     public static void setUp() throws IOException {
         // to get the browser on which the UI test has to be performed.
         System.out.println("***********StartTest*********");
-        RandomAction.deleteFiles("C:\\Users\\Edge\\Downloads");
+        RandomAction.deleteFiles( System.getProperty("user.home")+"\\Downloads");
         driver = RandomAction.openBrowser("Chrome", path);
         logger.info("Invoked browser .. ");
     }

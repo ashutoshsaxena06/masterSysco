@@ -307,7 +307,7 @@ public class CommonSysco {
 			btn_Export.click();
 			logger.info("clicked on Export");
 
-			Thread.sleep(80000);
+			Thread.sleep(30000);
 
 			WebElement lnk_Close = wait.until(
 					ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//div/a[@id='clsLink']"))));
