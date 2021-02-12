@@ -51,7 +51,7 @@ public class TestSyscoExecutor extends CommonSysco {
     public static String currList = "";
     public static String emailMessageExport = "";
     public static String path = System.getProperty("user.home") + "\\Downloads\\chromedriver_win32\\chromedriver.exe";
-    public static String project = System.getProperty("sheetName");
+    public static String project = "SyscoReports";
     public static LocalDate date;
     public static String extentReport = System.getProperty("user.dir") + File.separator + "extentsReport" + File.separator + "Report.html";
     public static ExtentReports er;
@@ -83,7 +83,7 @@ public class TestSyscoExecutor extends CommonSysco {
 
             String emailMsg = "Monthly " + project + " OG Export Status: " + RandomAction.getDate();
 
-            SendMailSSL.sendReports(emailMsg, reportFile);
+//            SendMailSSL.sendReports(emailMsg, reportFile);
             logger.info("Email Sent with Attachment");
         } catch (Exception e) {
             e.printStackTrace();

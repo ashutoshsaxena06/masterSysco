@@ -8,6 +8,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.LocalDate;
 import java.util.concurrent.TimeUnit;
 
 public class CommonSysco {
@@ -139,7 +140,6 @@ public class CommonSysco {
 
 	public static boolean loginSysco(WebDriver driver, String userName, String password) {
 		try {
-			Thread.sleep(2000);
 			driver.get("https://www.esysco.net/EOP/Login");
 			wait = new WebDriverWait(driver, 30);
 			// Enter username
@@ -198,7 +198,7 @@ public class CommonSysco {
 			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 			wait = new WebDriverWait(driver, 30);
 			// pass login
-			Thread.sleep(5000);
+			Thread.sleep(3000);
 
 			if (RandomAction.isFramePresent(driver)) {
 				driver.switchTo().frame("botFrame");
@@ -214,7 +214,7 @@ public class CommonSysco {
 			btn_SyscoMarketExpress.click();
 			logger.info("Sysco market express clicked");
 
-			Thread.sleep(2000);
+			Thread.sleep(1000);
 
 			try {
 				if (AccountID != null) {
@@ -238,7 +238,7 @@ public class CommonSysco {
 			lnk_List.click();
 			logger.info("Clicked On Order Guide option");
 
-			Thread.sleep(2000);
+			Thread.sleep(1000);
 
 			// Select list
 //			WebElement lnk_OGname = wait.until(ExpectedConditions.elementToBeClickable(driver
@@ -250,7 +250,7 @@ public class CommonSysco {
 			Select select = new Select(calendarDDL);
 			select.selectByValue("0");
 			logger.info("Clicked On DDL for Custom option");
-			Thread.sleep(5000);
+			Thread.sleep(3000);
 
 //		WebElement totalItems = wait.until(ExpectedConditions
 //				.elementToBeClickable(driver.findElement(By.xpath("//span[contains(@id,'msgTotal2')]"))));
@@ -262,12 +262,22 @@ public class CommonSysco {
 
 //			int[] startDates = getMMDDYYYY(TestSyscoExecutor.startDate);
 
+			WebElement yearPicker = wait.until(ExpectedConditions
+					.elementToBeClickable(driver.findElement(By.xpath("//select[contains(@class,'ui-datepicker-year')]"))));
+			Select year = new Select(yearPicker);
+			// check for current year
+			String currentYear = String.valueOf(LocalDate.now().getYear());
+			if (!year.getFirstSelectedOption().getText().contains(currentYear)){
+				year.selectByVisibleText(currentYear);
+			}
+			Thread.sleep(500);
+
 			WebElement monthPicker = wait.until(ExpectedConditions
 					.elementToBeClickable(driver.findElement(By.xpath("//select[contains(@class,'ui-datepicker-month')]"))));
 			Select select1 = new Select(monthPicker);
 //			select1.selectByValue(String.valueOf(startDates[0] - 1));
 			select1.selectByValue(String.valueOf(TestSyscoExecutor.date.getMonth().ordinal()));
-			Thread.sleep(5000);
+			Thread.sleep(500);
 			driver.findElement(By.xpath("//td/a[text()='1']")).click();
 			Thread.sleep(2000);
 
@@ -279,11 +289,9 @@ public class CommonSysco {
 					.elementToBeClickable(driver.findElement(By.xpath("//select[contains(@class,'ui-datepicker-month')]"))));
 			Select select2 = new Select(monthPicker1);
 			select2.selectByValue(String.valueOf(TestSyscoExecutor.date.getMonth().ordinal()));
-			Thread.sleep(5000);
+			Thread.sleep(500);
 			driver.findElement(By.xpath("//td/a[text()='"+TestSyscoExecutor.date.lengthOfMonth()+"']")).click();
-			Thread.sleep(2000);
 			logger.info("send end date for Custom option");
-			Thread.sleep(5000);
 
 			WebElement viewItems = wait.until(ExpectedConditions
 					.elementToBeClickable(driver.findElement(By.xpath("//input[contains(@id,'viewitemhistory')]"))));
@@ -300,9 +308,7 @@ public class CommonSysco {
 				logger.error("no purchase history - " + ne.getLocalizedMessage());
 				throw new UnsupportedOperationException();
 			}
-
-
-			Thread.sleep(5000);
+			Thread.sleep(2000);
 
 			logger.info("Export window displayed :-" + wait
 					.until(ExpectedConditions
@@ -315,7 +321,6 @@ public class CommonSysco {
 			ddl_expFormat.selectByValue("6");
 			logger.info("selected value for file type - 6");
 
-			Thread.sleep(2000);
 			WebElement chk_IncludePricing = driver.findElement(By.xpath("//input[@id='expIncludePricingCheckBox']"));
 			chk_IncludePricing.click();
 			if (!chk_IncludePricing.isSelected()) {
@@ -324,13 +329,11 @@ public class CommonSysco {
 			} else {
 				logger.info("Include Pricing already selected");
 			}
-			Thread.sleep(2000);
 
 //		WebElement chk_IncludeStatus = driver.findElement(By.xpath("//input[@id='expIncludePSMSCheckBox']"));
 //		chk_IncludeStatus.click();
 //		logger.info("checked to Include Status - " + chk_IncludeStatus.isSelected());
 
-			Thread.sleep(2000);
 
 			// pre export check
 			if (chk_IncludePricing.isSelected()) {
@@ -345,7 +348,7 @@ public class CommonSysco {
 			btn_Export.click();
 			logger.info("clicked on Export");
 
-			Thread.sleep(40000);
+			Thread.sleep(30000);
 
 			return "success";
 		} catch (UnsupportedOperationException un) {
