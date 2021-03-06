@@ -30,7 +30,7 @@ public class TestSyscoExecutor extends CommonSysco {
     private final static Logger logger = Logger.getLogger(TestSyscoExecutor.class);
     public static int rowIndex;
     public static String pr̥ojectPath = System.getProperty("user.dir");
-    public static String inputFile = System.getProperty("user.home") + "\\Desktop\\ExportEngineInput.xlsx";
+    public static String inputFile = System.getProperty("user.home") + "\\Desktop\\SyscoReports.xlsx";
     // projectPath + "\\config\\ExportEngineInput.xlsx";
     public static SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss");
     public static String reportFile = System.getProperty("user.home") + "\\Desktop\\Reports\\SyscoMonthly_report\\ExportSummary_Sysco_"
