@@ -120,7 +120,7 @@ public class TestSyscoExecutor extends CommonSysco {
         try {
             // Get TestCase sheet data
             int totalNoOfCols = inputsheet.getRow(inputsheet.getFirstRowNum()).getPhysicalNumberOfCells();
-            totalNoOfRows = inputsheet.getLastRowNum();
+            totalNoOfRows = inputsheet.getPhysicalNumberOfRows();
             logger.info(totalNoOfRows + " Accounts and Columns are: " + totalNoOfCols);
             td = new String[totalNoOfRows][totalNoOfCols];
             for (int i = 1; i <= totalNoOfRows; i++) {
